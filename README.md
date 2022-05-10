@@ -1,0 +1,1 @@
+# ssm-club-manage
