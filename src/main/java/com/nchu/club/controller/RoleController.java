@@ -20,7 +20,7 @@ public class RoleController {
         List<Role> roleList = roleService.findAll();
         ModelAndView mv = new ModelAndView();
         mv.addObject("role",roleList);
-        mv.setViewName("/manager/role");
+        mv.setViewName("/manager/manage");
         return mv;
     }
 }
