@@ -12,6 +12,7 @@ public class User {
     private String usex;    //用户性别
     private String upassword; //用户密码
     private int roleId; //用户角色
+    private String uno; //用户学号
 
     public User() {}
 
@@ -106,5 +107,13 @@ public class User {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+    public String getUno() {
+        return uno;
+    }
+
+    public void setUno(String uno) {
+        this.uno = uno;
     }
 }

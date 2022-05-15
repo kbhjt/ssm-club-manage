@@ -11,7 +11,7 @@
 
     <mappers>
         <!-- 加载dao包下的所有mapper文件 -->
-        <package name="com.nchu.ticket.dao"/>
+        <package name="com.nchu.club.dao"/>
     </mappers>
 
 </configuration>

@@ -7,17 +7,21 @@ public class Club {
     private String cintroduce;  //社团介绍
     private String cleader;     //社团负责人
     private String chelper;     //社团助理
-    private int delete;         //删除标记位（假删除）
+    private String createTime;  //创建时间
+    private String updateTime;  //修改时间
+    private int isDelete;         //删除标记位（假删除）
 
     public Club() {}
 
-    public Club(String cid, String cname, String cintroduce, String cleader, String chelper, int delete) {
+    public Club(String cid, String cname, String cintroduce, String cleader, String chelper, String createTime, String updateTime, int delete) {
         this.cid = cid;
         this.cname = cname;
         this.cintroduce = cintroduce;
         this.cleader = cleader;
         this.chelper = chelper;
-        this.delete = delete;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.isDelete = delete;
     }
 
     public String getCid() {
@@ -60,11 +64,27 @@ public class Club {
         this.chelper = chelper;
     }
 
-    public int getDelete() {
-        return delete;
+    public int getIsDelete() {
+        return isDelete;
     }
 
-    public void setDelete(int delete) {
-        this.delete = delete;
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

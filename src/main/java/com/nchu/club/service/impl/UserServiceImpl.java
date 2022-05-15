@@ -18,4 +18,9 @@ public class UserServiceImpl implements UserService {
     public User login(String uid,String upassword,int roleId) {
         return userDao.selectOne(uid, upassword, roleId);
     }
+
+    @Override
+    public List<User> getClubUser(String cid) {
+        return userDao.selectClubUser(cid);
+    }
 }

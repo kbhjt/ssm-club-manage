@@ -6,4 +6,6 @@ import java.util.List;
 public interface UserService {
 
     User login(String uid,String upassword,int roleId);
+
+    List<User> getClubUser(String cid);
 }
