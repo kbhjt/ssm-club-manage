@@ -2,7 +2,7 @@ package com.nchu.club.domain;
 
 public class Club {
 
-    private String cid;         //社团id
+    private Integer cid;         //社团id
     private String cname;       //社团名称
     private String cintroduce;  //社团介绍
     private String cleader;     //社团负责人
@@ -13,7 +13,7 @@ public class Club {
 
     public Club() {}
 
-    public Club(String cid, String cname, String cintroduce, String cleader, String chelper, String createTime, String updateTime, int delete) {
+    public Club(Integer cid, String cname, String cintroduce, String cleader, String chelper, String createTime, String updateTime, int delete) {
         this.cid = cid;
         this.cname = cname;
         this.cintroduce = cintroduce;
@@ -24,11 +24,11 @@ public class Club {
         this.isDelete = delete;
     }
 
-    public String getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(String cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 

@@ -1,7 +1,7 @@
 package com.nchu.club.vo;
 
 public class ClubVo {
-    private String cid;
+    private Integer cid;
     private String cname;
     private String cleader;
     private String createTime;
@@ -9,7 +9,7 @@ public class ClubVo {
 
     public ClubVo() {}
 
-    public ClubVo(String cid, String cname, String cleader, String createTime, String updateTime) {
+    public ClubVo(Integer cid, String cname, String cleader, String createTime, String updateTime) {
         this.cid = cid;
         this.cname = cname;
         this.cleader = cleader;
@@ -17,11 +17,11 @@ public class ClubVo {
         this.updateTime = updateTime;
     }
 
-    public String getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(String cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 

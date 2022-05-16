@@ -2,7 +2,7 @@ package com.nchu.club.domain;
 
 public class User {
 
-    private String uid;     //用户id
+    private Integer uid;     //用户id
     private String uname;   //用户姓名
     private String uemail;  //用户邮箱
     private String uclass;  //用户班级
@@ -16,7 +16,7 @@ public class User {
 
     public User() {}
 
-    public User(String uid, String uname, String uemail, String uclass, String unick, String uimage, String usign, String usex, String upassword, int roleId) {
+    public User(Integer uid, String uname, String uemail, String uclass, String unick, String uimage, String usign, String usex, String upassword, int roleId) {
         this.uid = uid;
         this.uname = uname;
         this.uemail = uemail;
@@ -29,11 +29,11 @@ public class User {
         this.roleId = roleId;
     }
 
-    public String getUid() {
+    public Integer getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(Integer uid) {
         this.uid = uid;
     }
 

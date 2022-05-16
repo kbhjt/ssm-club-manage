@@ -20,7 +20,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getClubUser(String cid) {
+    public List<User> getClubUser(Integer cid) {
         return userDao.selectClubUser(cid);
+    }
+
+    @Override
+    public int register(User user) {
+        return userDao.addUser(user);
     }
 }

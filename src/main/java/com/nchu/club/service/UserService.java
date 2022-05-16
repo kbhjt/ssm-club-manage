@@ -5,7 +5,12 @@ import java.util.List;
 
 public interface UserService {
 
+    //登录
     User login(String uid,String upassword,int roleId);
 
-    List<User> getClubUser(String cid);
+    //获取社团所有成员
+    List<User> getClubUser(Integer cid);
+
+    //注册
+    int register(User user);
 }

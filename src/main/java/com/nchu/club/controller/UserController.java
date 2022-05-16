@@ -26,4 +26,20 @@ public class UserController {
         }
         return "账号或密码错误";
     }
+
+    @RequestMapping("/register")
+    @ResponseBody
+    public String register(String uname,String uno,String uemail,String usex,String upassword) {
+        User user = new User();
+        user.setUname(uname);
+        user.setUno(uno);
+        user.setUemail(uemail);
+        user.setUsex(usex);
+        user.setUpassword(upassword);
+        int result = userService.register(user);
+        if(result > 0) {
+            return "注册成功";
+        }
+        return "注册失败";
+    }
 }

@@ -2,7 +2,7 @@ package com.nchu.club.vo;
 
 public class ClubActivityVo {
 
-    private String cid;
+    private Integer cid;
     private String aid;
     private String cname;
     private String aname;
@@ -11,7 +11,7 @@ public class ClubActivityVo {
 
     public ClubActivityVo() {}
 
-    public ClubActivityVo(String cid, String aid, String cname, String aname, String aintroduce, String aimage) {
+    public ClubActivityVo(Integer cid, String aid, String cname, String aname, String aintroduce, String aimage) {
         this.cid = cid;
         this.aid = aid;
         this.cname = cname;
@@ -20,11 +20,11 @@ public class ClubActivityVo {
         this.aimage = aimage;
     }
 
-    public String getCid() {
+    public Integer getCid() {
         return cid;
     }
 
-    public void setCid(String cid) {
+    public void setCid(Integer cid) {
         this.cid = cid;
     }
 

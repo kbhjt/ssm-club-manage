@@ -31,7 +31,7 @@ public class ClubController {
     }
 
     @RequestMapping("/edit_club")
-    public ModelAndView setClubVoToEdit(String cid) {
+    public ModelAndView setClubVoToEdit(Integer cid) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("clubUser",userService.getClubUser(cid));
         mv.setViewName("/manager/edit");

@@ -241,7 +241,7 @@
 <div class="main-body">
     <div class="login-main">
         <div class="login-top">
-            <span>LayuiMini后台登录</span>
+            <span>社团管理后台登录</span>
             <span class="bg1"></span>
             <span class="bg2"></span>
         </div>
@@ -271,10 +271,14 @@
             <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
                 <button class="login-btn" lay-submit lay-filter="login">立即登录</button>
             </div>
+            <div class="tip">
+                <a href="#" id="register" class="forget-password" style="margin-top: 10px;margin-right: 17px">立即注册</a>
+            </div>
         </form>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/css/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 <script>
     layui.use(['form', 'jquery'], function () {
         var $ = layui.jquery,
@@ -333,6 +337,19 @@
             })
             return false;
         });
+    });
+    $(document).ready(function(){
+        $('#register').click(function() {
+            var index = layer.open({
+                title: '用户注册',
+                type: 2,
+                shade: 0.2,
+                maxmin:true,
+                shadeClose: true,
+                area: ['40%', '85%'],
+                content: '${pageContext.request.contextPath}/register.jsp'
+            });
+        })
     });
 </script>
 </body>

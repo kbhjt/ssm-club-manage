@@ -1,9 +1,6 @@
 package com.nchu.club.dao;
 import com.nchu.club.domain.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,6 +14,7 @@ public interface UserDao {
     User selectOne(@Param("uno") String uno, @Param("upassword") String upassword, @Param("roleId") int roleId);
 
     //添加一个用户
+    @Options(useGeneratedKeys = true, keyProperty = "uid")
     @Insert("insert into user(uname,uemail,uclass,unick,uimage,usign,usex,upassword,uno)" +
             " values(#{uname},#{uemail},#{uclass},#{unick},#{uimage},#{usign}," +
             "#{usex},#{upassword},#{uno})")
@@ -41,5 +39,5 @@ public interface UserDao {
             " from user u,club_member c" +
             " where c.uid = u.uid" +
             " and cid = #{cid}")
-    List<User> selectClubUser(String cid);
+    List<User> selectClubUser(Integer cid);
 }
