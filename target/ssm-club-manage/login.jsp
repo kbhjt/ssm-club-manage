@@ -266,7 +266,7 @@
             <div class="tip">
                 <span class="icon-nocheck"></span>
                 <span class="login-tip">保持登录</span>
-                <a href="javascript:" class="forget-password">忘记密码？</a>
+                <a href="#" id="forget" class="forget-password">忘记密码？</a>
             </div>
             <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
                 <button class="login-btn" lay-submit lay-filter="login">立即登录</button>
@@ -348,6 +348,17 @@
                 shadeClose: true,
                 area: ['40%', '85%'],
                 content: '${pageContext.request.contextPath}/register.jsp'
+            });
+        });
+        $('#forget').click(function() {
+            var index = layer.open({
+                title: '密码重置',
+                type: 2,
+                shade: 0.2,
+                maxmin:true,
+                shadeClose: true,
+                area: ['35%', '60%'],
+                content: '${pageContext.request.contextPath}/reset_password.jsp'
             });
         })
     });

@@ -1,5 +1,7 @@
 package com.nchu.club.domain;
 
+import java.util.Date;
+
 public class User {
 
     private Integer uid;     //用户id
@@ -13,6 +15,8 @@ public class User {
     private String upassword; //用户密码
     private int roleId; //用户角色
     private String uno; //用户学号
+    private String validatacode;
+    private Date outdate;
 
     public User() {}
 
@@ -115,5 +119,21 @@ public class User {
 
     public void setUno(String uno) {
         this.uno = uno;
+    }
+
+    public String getValidatacode() {
+        return validatacode;
+    }
+
+    public void setValidatacode(String validatacode) {
+        this.validatacode = validatacode;
+    }
+
+    public Date getOutdate() {
+        return outdate;
+    }
+
+    public void setOutdate(Date outdate) {
+        this.outdate = outdate;
     }
 }

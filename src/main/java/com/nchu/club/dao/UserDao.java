@@ -2,6 +2,7 @@ package com.nchu.club.dao;
 import com.nchu.club.domain.User;
 import org.apache.ibatis.annotations.*;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserDao {
@@ -40,4 +41,18 @@ public interface UserDao {
             " where c.uid = u.uid" +
             " and cid = #{cid}")
     List<User> selectClubUser(Integer cid);
+
+    //将密钥存入数据中
+    @Update("update user set validatacode = #{validatacode},outdate = #{outdate}" +
+            " where uemail = #{uemail}")
+    int updateValidataCodeAndOutdate(User user);
+
+    //根据邮箱查询用户
+    @Select("select * from user where uemail = #{uemail}")
+    User selectOneByEmail(String uemail);
+
+    //修改密码 通过邮箱
+    @Update("update user set upassword = #{upassword} where uemail = #{uemail}")
+    int updatePassword(User user);
+
 }
