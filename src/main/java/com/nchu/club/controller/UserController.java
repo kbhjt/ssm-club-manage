@@ -27,16 +27,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //登录
     @RequestMapping("/login")
     @ResponseBody
-    public String login(String username, String password, String utype) {
+    public String login(String username, String password, String utype, HttpServletRequest request) {
         User user = userService.login(username, password, Integer.valueOf(utype));
+        request.getSession().setAttribute("user",user);
         if (user != null) {
             return "登录成功";
         }
         return "账号或密码错误";
     }
 
+    //注册
     @RequestMapping("/register")
     @ResponseBody
     public String register(String uname, String uno, String uemail, String usex, String upassword) {
@@ -149,4 +152,24 @@ public class UserController {
             return "密码修改失败，服务器异常";
         }
     }
+
+    //设置个人信息
+    @RequestMapping("/update_user")
+    @ResponseBody
+    public String updateUser(String uclass,String unick,String uemail,String uimage,String usign,String uno) {
+        User user = new User();
+        user.setUclass(uclass);
+        user.setUnick(unick);
+        user.setUemail(uemail);
+        user.setUimage(uimage);
+        user.setUsign(usign);
+        user.setUno(uno);
+        int result = userService.updatePersonalMessage(user);
+        if(result > 0) {
+            return "保存成功";
+        }else {
+            return "服务器异常，保存失败";
+        }
+    }
+
 }

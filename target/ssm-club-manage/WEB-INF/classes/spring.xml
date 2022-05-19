@@ -32,4 +32,6 @@
         <!-- 给出需要扫描Dao接口包 -->
         <property name="basePackage" value="com.nchu.club.dao" />
     </bean>
+
+
 </beans>

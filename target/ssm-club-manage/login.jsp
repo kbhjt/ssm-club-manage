@@ -264,15 +264,11 @@
 
             </div>
             <div class="tip">
-                <span class="icon-nocheck"></span>
-                <span class="login-tip">保持登录</span>
+                <span class="login-tip" style="color: #1391ff" id="register">立即注册</span>
                 <a href="#" id="forget" class="forget-password">忘记密码？</a>
             </div>
             <div class="layui-form-item" style="text-align:center; width:100%;height:100%;margin:0px;">
                 <button class="login-btn" lay-submit lay-filter="login">立即登录</button>
-            </div>
-            <div class="tip">
-                <a href="#" id="register" class="forget-password" style="margin-top: 10px;margin-right: 17px">立即注册</a>
             </div>
         </form>
     </div>
@@ -306,6 +302,7 @@
         // 进行登录操作
         form.on('submit(login)', function (data) {
             data = data.field;
+            var utype = data.utype;
             console.log(data.username+' ' + data.password + ' ' + data.utype)
             if (data.username == '') {
                 layer.msg('用户名不能为空');
@@ -326,8 +323,12 @@
                 success : function (data){
                     console.log(data);
                     if (data == '登录成功') {
-                        layer.msg('登录成功', function () {
-                            window.location = '${pageContext.request.contextPath}/role/findAll'
+                        layer.msg('登录成功', {time: 2000}, function () {
+                            if(utype == '1') {
+                                window.location = '${pageContext.request.contextPath}/manager/manage.jsp'
+                            }else {
+                                window.location = '${pageContext.request.contextPath}/club_manager/club_manager.jsp'
+                            }
                         })
                     }else {
                         layer.msg(data);

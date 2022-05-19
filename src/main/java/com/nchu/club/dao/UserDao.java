@@ -22,10 +22,9 @@ public interface UserDao {
     int addUser(User user);
 
     //修改用户信息
-    @Update("update user set uname = #{uname},uemail = #{uemail},uclass = #{uclass}," +
-            "unick = #{unick},uimage = #{uimage},usign = #{usign},usex = #{usex}," +
-            "upassword = #{upassword},uno = #{uno}" +
-            " where uid = #{uid}")
+    @Update("update user set uemail = #{uemail},uclass = #{uclass}," +
+            "unick = #{unick},uimage = #{uimage},usign = #{usign}" +
+            " where uno = #{uno}")
     int updateUser(User user);
 
     //通过id查找用户

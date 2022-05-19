@@ -24,4 +24,7 @@ public interface UserService {
 
     //修改密码
     int updatePwd(User user);
+
+    //设置个人信息
+    int updatePersonalMessage(User user);
 }
