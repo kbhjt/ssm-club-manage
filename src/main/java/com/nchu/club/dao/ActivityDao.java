@@ -1,7 +1,8 @@
 package com.nchu.club.dao;
 
 import com.nchu.club.domain.Activity;
-import com.nchu.club.vo.ActivityUserVo;
+import com.nchu.club.vo.ActivityDataVo;
+import com.nchu.club.vo.ActivityPeopleNumVo;
 import com.nchu.club.vo.ClubActivityVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
@@ -44,12 +45,15 @@ public interface ActivityDao {
     List<ClubActivityVo> selectActivityById(String cid);
 
     //查询社团活动的统计信息（人数、性别、年级）
-    @Select("select c1.cid,c1.aid,c2.uid,u.usex,u.uclass" +
-            " from activity_user a,club_activity c1,club_member c2,user u" +
-            " where a.aid = c1.aid and a.uid = c2.uid" +
-            " and c1.cid = c2.cid and u.uid = a.uid" +
-            " and c1.cid = #{cid}")
-    List<ActivityUserVo> selectActivityUserById(String cid);
+    @Select("select u1.uid,u1.usex,u1.uclass,a1.aid,a1.aname" +
+            " from user u1,club_member c1,activity a1,activity_user a2,club c2" +
+            " where u1.uid = c1.uid and u1.uid = a2.uid and a1.cid = c2.cid" +
+            " and u1.uid = a2.uid and a1.aid = a2.aid and c2.cid = #{cid}")
+    List<ActivityDataVo> selectActivityUserById(int cid);
+
+    //查询社团活动人数分布
+    @Select("select count(a1.uid) as value,a2.aname as name from activity_user a1,activity a2 where a1.aid = a2.aid and a2.cid = #{cid} GROUP BY a1.aid")
+    List<ActivityPeopleNumVo> selectActivityPeopleNum(int cid);
 
 
 }

@@ -1,6 +1,8 @@
 package com.nchu.club.controller;
 
+import com.nchu.club.domain.Club;
 import com.nchu.club.domain.User;
+import com.nchu.club.service.ClubService;
 import com.nchu.club.service.UserService;
 import com.nchu.club.utils.Md5Util;
 import com.nchu.club.utils.SendmailUtil;
@@ -8,6 +10,8 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import sun.security.provider.MD5;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
@@ -26,14 +31,20 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ClubService clubService;
 
     //登录
     @RequestMapping("/login")
     @ResponseBody
     public String login(String username, String password, String utype, HttpServletRequest request) {
         User user = userService.login(username, password, Integer.valueOf(utype));
-        request.getSession().setAttribute("user",user);
         if (user != null) {
+            List<Club> club = clubService.getClubByUid(user.getUid());
+            if(club != null && club.size() > 0) {
+                request.getSession().setAttribute("club",club.get(0));
+            }
+            request.getSession().setAttribute("user",user);
             return "登录成功";
         }
         return "账号或密码错误";
@@ -143,9 +154,11 @@ public class UserController {
     //更新密码
     @RequestMapping("/updatepwd")
     @ResponseBody
-    public String updatePwd(String uemail,String upassword) {
+    public String updatePwd(String uemail,String upassword,HttpServletRequest request) {
         User user = userService.getUserByEmail(uemail);
         user.setUpassword(upassword);
+        //修改密码后，需要重新登录，所以这里需要将session对象清空
+        request.getSession().invalidate();
         if(userService.updatePwd(user) > 0) {
             return "密码修改成功，3秒后返回登录页面";
         }else {
@@ -156,7 +169,7 @@ public class UserController {
     //设置个人信息
     @RequestMapping("/update_user")
     @ResponseBody
-    public String updateUser(String uclass,String unick,String uemail,String uimage,String usign,String uno) {
+    public String updateUser(String uclass,String unick,String uemail,String uimage,String usign,String uno,HttpServletRequest request) {
         User user = new User();
         user.setUclass(uclass);
         user.setUnick(unick);
@@ -166,10 +179,19 @@ public class UserController {
         user.setUno(uno);
         int result = userService.updatePersonalMessage(user);
         if(result > 0) {
+            request.getSession().setAttribute("user",user);
             return "保存成功";
         }else {
             return "服务器异常，保存失败";
         }
+    }
+
+    //退出登录
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        //退出登录将session对象的数据清空
+        request.getSession().invalidate();
+        return "redirect:/login.jsp";
     }
 
 }

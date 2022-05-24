@@ -46,5 +46,10 @@ public interface ClubDao {
                          @Param("cid") String cid,
                          @Param("rid") String rid);
 
+    //通过用户id查询所在的社团
+    @Select("select c.* from club c,club_member c1" +
+            " where c.cid = c1.cid" +
+            " and c1.uid = #{uid}")
+    List<Club> selectClubByUid(int uid);
 
 }

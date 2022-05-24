@@ -24,7 +24,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">学号</label>
                 <div class="layui-input-block">
-                    <input type="text" name="uno" lay-verify="required" lay-reqtext="学号不能为空" placeholder="请输入管理账号"  value="${user.uno}" class="layui-input">
+                    <input type="text" name="uno" lay-verify="required" lay-reqtext="学号不能为空" placeholder="请输入学号"  value="${user.uno}" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -51,8 +51,12 @@
                     <button type="button" class="layui-btn" id="test1">
                         <i class="layui-icon">&#xe67c;</i>上传图片
                     </button>
+                    <div id="imgDiv" class="layui-upload-list" style="display: none;">
+                        <img class="layui-upload-img" width="100px" height="80px" id="previewImg" name="msg"/>
+                    </div>
                 </div>
             </div>
+
             <div class="layui-form-item layui-form-text">
                 <label class="layui-form-label">个性签名</label>
                 <div class="layui-input-block">
@@ -75,15 +79,23 @@
         var layer = layui.layer;
         var $ = layui.jquery;
         var upload = layui.upload;
-        var uimage = '';
+        var uimage = '${user.uimage}';
         //执行实例
         var uploadInst = upload.render({
             elem: '#test1' //绑定元素
             ,url: '${pageContext.request.contextPath}/file/upload' //上传接口
+            ,before: function (obj) {
+                obj.preview(function(index, file, result){
+                    $('#previewImg').attr('src', result); //图片链接（base64）
+                });
+            }
             ,done: function(res){
                 //上传成功
                 layer.msg("上传成功");
                 uimage = res.msg;
+                console.log(res.url)
+                $(".image").value = res.url
+                $("#imgDiv").css("display","")// 显示图片框
             }
             ,error: function(){
                 //请求异常回调

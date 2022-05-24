@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>社团管理系统</title>
+    <title>${club.cname}社团管理系统</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layui-v2.6.3/css/layui.css">
 </head>
 <body class="layui-layout-body">
@@ -18,31 +18,29 @@
 <!-- 顶部区域 -->
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">社团管理系统</div>
+        <div class="layui-logo">${club.cname}社团管理系统</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="https://img1.baidu.com/it/u=2411193159,2570516693&fm=253&fmt=auto&app=138&f=PNG?w=1080&h=361" class="layui-nav-img">
-                    社团负责人
+                    <img src="${pageContext.request.contextPath}/images/avatar/${user.uimage}" class="layui-nav-img">
+                    ${user.uname}
                 </a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="person_message" data-title="个人资料" data-id="44" class="site-demo-active"
+                        <a href="#" data-url="person_message" data-title="个人资料" data-id="88" class="site-demo-active"
                            data-type="tabAdd">
                             个人资料
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="修改密码" data-id="55" class="site-demo-active" data-type="tabAdd">
+                        <a href="#" data-url="update_password" data-title="修改密码" data-id="99" class="site-demo-active" data-type="tabAdd">
                             修改密码
                         </a>
                     </dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <!--TODO -->
-                <!--可能需要修改路径-->
-                <a href="/user/logout">退出</a>
+                <a href="${pageContext.request.contextPath}/user/logout">退出</a>
             </li>
         </ul>
     </div>
@@ -67,12 +65,12 @@
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="profile" data-title="考核管理" data-id="33" class="site-demo-active"
+                        <a href="#" data-url="profile" data-title="活动评论" data-id="33" class="site-demo-active"
                            data-type="tabAdd">
                             活动评论
                         </a>
                     </dd><dd>
-                    <a href="#" data-url="profile" data-title="考核管理" data-id="33" class="site-demo-active"
+                    <a href="#" data-url="activity_data" data-title="活动统计" data-id="44" id="default-tab"  class="site-demo-active"
                        data-type="tabAdd">
                         活动统计
                     </a>
@@ -84,19 +82,19 @@
                 <a href="javascript:;">用户管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="list" data-title="用户信息" data-id="11" id="default-tab" class="site-demo-active"
+                        <a href="#" data-url="list" data-title="用户信息" data-id="55" class="site-demo-active"
                            data-type="tabAdd">
                             用户信息
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="角色信息" data-id="22" class="site-demo-active"
+                        <a href="#" data-url="password" data-title="角色信息" data-id="66" class="site-demo-active"
                            data-type="tabAdd">
                             角色信息
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="成员审核" data-id="22" class="site-demo-active"
+                        <a href="#" data-url="password" data-title="成员审核" data-id="77" class="site-demo-active"
                            data-type="tabAdd">
                             成员审核
                         </a>
@@ -107,13 +105,13 @@
                 <a href="javascript:;">个人管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="person_message" data-title="个人资料" data-id="44" class="site-demo-active"
+                        <a href="#" data-url="person_message" data-title="个人资料" data-id="88" class="site-demo-active"
                            data-type="tabAdd">
                             个人资料
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="修改密码" data-id="55" class="site-demo-active"
+                        <a href="#" data-url="update_password" data-title="修改密码" data-id="99" class="site-demo-active"
                            data-type="tabAdd">
                             修改密码
                         </a>
@@ -163,12 +161,14 @@
         var active = {
             // 在这里给active绑定几项事件，后面可通过active调用这些事件
             tabAdd: function (url, id, name) {
-                // 新增一个Tab项 传入三个参数，分别对应其标题，tab页面的地址，还有一个规定的id，是标签中data-id的属性值
-                // 关于tabAdd的方法所传入的参数可看layui的开发文档中基础方法部分
+                if (url == 'update_password') {
+                    url = '${pageContext.request.contextPath}/update_password'
+                }
+                if(url == 'person_message') {
+                    url = '${pageContext.request.contextPath}/person_message'
+                }
                 element.tabAdd('demo', {
                     title: name,
-                    // TODO
-                    // 这里的选项卡页面路径：  src="' + url + '.html"  ，可能需要根据自己项目实际的后缀名修改
                     content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '.jsp" style="width:100%;height:99%;"></iframe>',
                     id: id // 规定好的id
                 })

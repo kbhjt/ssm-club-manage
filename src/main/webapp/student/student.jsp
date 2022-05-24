@@ -1,24 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: lenovo
+  Date: 2022-05-23
+  Time: 21:32
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>社团管理系统</title>
+    <title>昌航社团</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layui-v2.6.3/css/layui.css">
 </head>
 <body class="layui-layout-body">
 
 <!-- 顶部区域 -->
 <div class="layui-layout layui-layout-admin">
-    <!-- 顶部区域 -->
     <div class="layui-header">
-        <div class="layui-logo">社团后台管理系统</div>
+        <div class="layui-logo">昌航社团</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="https://img1.baidu.com/it/u=2411193159,2570516693&fm=253&fmt=auto&app=138&f=PNG?w=1080&h=361" class="layui-nav-img">
-                    超级管理员
+                    <img src="${pageContext.request.contextPath}/images/avatar/${user.uimage}" class="layui-nav-img">
+                    用户
                 </a>
                 <dl class="layui-nav-child">
                     <dd>
@@ -28,54 +33,77 @@
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="${pageContext.request.contextPath}/update_password" data-title="修改密码" data-id="55" class="site-demo-active" data-type="tabAdd">
+                        <a href="#" data-url="update_password" data-title="修改密码" data-id="55" class="site-demo-active" data-type="tabAdd">
                             修改密码
                         </a>
                     </dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="/user/logout">退出</a>
+                <a href="${pageContext.request.contextPath}/user/logout">退出</a>
             </li>
         </ul>
     </div>
+
+
     <!-- 左侧导航栏 -->
     <div class="layui-tab  layui-side layui-tab-card site-demo-button">
         <ul class="layui-nav layui-side layui-nav-tree layui-nav-side">
             <li class="layui-nav-item layui-nav-itemed">
-                <a href="javascript:;">社团管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="club" data-title="社团信息" data-id="11" id="default-tab" class="site-demo-active"
+                        <a href="#" data-url="home" data-title="首页" data-id="11" class="site-demo-active"
                            data-type="tabAdd">
-                            社团信息
-                        </a>
-                    </dd>
-                    <dd>
-                        <a href="#" data-url="password" data-title="成员信息" data-id="22" class="site-demo-active"
-                           data-type="tabAdd">
-                            成员信息
+                            首页
                         </a>
                     </dd>
                 </dl>
             </li>
 
             <li class="layui-nav-item layui-nav-itemed">
-                <a href="javascript:;">活动管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="profile" data-title="活动信息" data-id="44" class="site-demo-active"
+                        <a href="#" data-url="club" data-title="社团广场" data-id="22" class="site-demo-active"
                            data-type="tabAdd">
-                            活动信息
+                            社团广场
                         </a>
                     </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="#" data-url="activity" data-title="活动广场" data-id="33" class="site-demo-active"
+                           data-type="tabAdd">
+                            活动广场
+                        </a>
+                    </dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">个人管理</a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="#" data-url="person_message" data-title="个人资料" data-id="44" class="site-demo-active"
+                           data-type="tabAdd">
+                            个人资料
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#" data-url="update_password" data-title="修改密码" data-id="55" class="site-demo-active"
+                           data-type="tabAdd">
+                            修改密码
+                        </a>
+                    </dd>
+
                 </dl>
             </li>
         </ul>
 
 
     </div>
-    <!-- 内容主体区域 -->
+
+
     <div class="layui-body">
         <!-- 内容主体区域 -->
         <div class="layui-tab" lay-filter="demo" lay-allowClose="true">
@@ -92,11 +120,12 @@
             </div>
         </div>
     </div>
-    <!-- 底部固定区域 -->
+
     <div class="layui-footer">
         <!-- 底部固定区域 -->
-        © nchu.com - 社团后台管理系统
+        © nchu.com - 昌航社团
     </div>
+
 </div>
 
 <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
@@ -107,7 +136,6 @@
     layui.use(['element','layer'], function () {
         var $ = layui.jquery;
         var element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-
         //触发事件
         var active = {
             // 在这里给active绑定几项事件，后面可通过active调用这些事件
@@ -118,8 +146,6 @@
                 if(url == 'person_message') {
                     url = '${pageContext.request.contextPath}/person_message'
                 }
-                <%--url = '${pageContext.request.contextPath}/manager/' + url--%>
-
                 element.tabAdd('demo', {
                     title: name,
                     content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '.jsp" style="width:100%;height:99%;"></iframe>',

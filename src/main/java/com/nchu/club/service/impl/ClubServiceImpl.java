@@ -61,4 +61,9 @@ public class ClubServiceImpl implements ClubService {
         }
         return newList;
     }
+
+    @Override
+    public List<Club> getClubByUid(int uid) {
+        return clubDao.selectClubByUid(uid);
+    }
 }

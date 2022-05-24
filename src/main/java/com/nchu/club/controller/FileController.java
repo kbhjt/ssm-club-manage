@@ -20,7 +20,7 @@ public class FileController {
     public JSON uploadFile(MultipartFile file, HttpServletRequest request) {
         JSONObject json = new JSONObject();
         //路径
-        String filePath = "D:/学习/大三/大三下/综合课设/大学生社团管理系统/ssm-club-manage" + "/src/main/resources/static/images/";//上传到这个文件夹
+        String filePath = request.getSession().getServletContext().getRealPath("/") + "images/avatar/";//上传到这个文件夹
         File file1 = new File(filePath);
         //如果没有的话创建一个
         if (!file1.exists()) {
@@ -39,6 +39,7 @@ public class FileController {
             json.put("code", 0);
             //将文件名放在msg中，前台提交表单时需要用到
             json.put("msg", file.getOriginalFilename().trim());
+            json.put("url",finalFilePath);
             JSONObject json2 = new JSONObject();
             json2.put("src", finalFilePath);
             json2.put("title", "");

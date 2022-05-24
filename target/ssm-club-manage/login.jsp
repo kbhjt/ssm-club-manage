@@ -331,7 +331,7 @@
                             }
                         })
                     }else {
-                        layer.msg(data);
+                        layer.msg('用户名或密码错误',function (){});
                     }
 
                 }
@@ -359,7 +359,7 @@
                 maxmin:true,
                 shadeClose: true,
                 area: ['35%', '60%'],
-                content: '${pageContext.request.contextPath}/reset_password.jsp'
+                content: '${pageContext.request.contextPath}/forget_password.jsp'
             });
         })
     });

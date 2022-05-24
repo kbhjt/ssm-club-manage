@@ -54,4 +54,5 @@ public interface UserDao {
     @Update("update user set upassword = #{upassword} where uemail = #{uemail}")
     int updatePassword(User user);
 
+
 }
