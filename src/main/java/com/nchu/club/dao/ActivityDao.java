@@ -32,17 +32,19 @@ public interface ActivityDao {
     int updateActivity(Activity activity);
 
     //查询所有社团活动信息
-    @Select("select c1.cid,c1.aid,cname,aname,aintroduce,aimage,atime" +
-            " from activity a,club_activity c1,club c2" +
-            " where a.aid = c1.aid and c1.aid = c2.aid")
-    List<ClubActivityVo> selectAllActivity();
+    @Select("select * from activity where isDelete = 0")
+    List<Activity> selectAllActivity();
 
-    //查询指定社团活动信息
-    @Select("select c1.cid,c1.aid,cname,aname,aintroduce,aimage,atime" +
-            " from activity a,club_activity c1,club c2" +
-            " where a.aid = c1.aid and c1.aid = c2.aid" +
-            " and c1.cid = #{cid}")
-    List<ClubActivityVo> selectActivityById(String cid);
+    //查询指定社团活动的信息
+    @Select("select * from activity where isDelete = 0 and cid = #{cid}")
+    List<Activity> selectActivityByCid(int cid);
+
+//    //查询指定社团活动信息
+//    @Select("select c1.cid,c1.aid,cname,aname,aintroduce,aimage,atime" +
+//            " from activity a,club_activity c1,club c2" +
+//            " where a.aid = c1.aid and c1.aid = c2.aid" +
+//            " and c1.cid = #{cid}")
+//    List<ClubActivityVo> selectActivityById(String cid);
 
     //查询社团活动的统计信息（人数、性别、年级）
     @Select("select u1.uid,u1.usex,u1.uclass,a1.aid,a1.aname" +

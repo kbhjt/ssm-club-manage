@@ -1,70 +1,33 @@
 package com.nchu.club.vo;
 
+import com.nchu.club.domain.Activity;
+import com.nchu.club.domain.Club;
+
 public class ClubActivityVo {
 
-    private Integer cid;
-    private String aid;
-    private String cname;
-    private String aname;
-    private String aintroduce;
-    private String aimage;
+    private Activity activity;
+    private Club club;
 
     public ClubActivityVo() {}
 
-    public ClubActivityVo(Integer cid, String aid, String cname, String aname, String aintroduce, String aimage) {
-        this.cid = cid;
-        this.aid = aid;
-        this.cname = cname;
-        this.aname = aname;
-        this.aintroduce = aintroduce;
-        this.aimage = aimage;
+    public ClubActivityVo(Activity activity, Club club) {
+        this.activity = activity;
+        this.club = club;
     }
 
-    public Integer getCid() {
-        return cid;
+    public Activity getActivity() {
+        return activity;
     }
 
-    public void setCid(Integer cid) {
-        this.cid = cid;
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
-    public String getAid() {
-        return aid;
+    public Club getClub() {
+        return club;
     }
 
-    public void setAid(String aid) {
-        this.aid = aid;
-    }
-
-    public String getCname() {
-        return cname;
-    }
-
-    public void setCname(String cname) {
-        this.cname = cname;
-    }
-
-    public String getAname() {
-        return aname;
-    }
-
-    public void setAname(String aname) {
-        this.aname = aname;
-    }
-
-    public String getAintroduce() {
-        return aintroduce;
-    }
-
-    public void setAintroduce(String aintroduce) {
-        this.aintroduce = aintroduce;
-    }
-
-    public String getAimage() {
-        return aimage;
-    }
-
-    public void setAimage(String aimage) {
-        this.aimage = aimage;
+    public void setClub(Club club) {
+        this.club = club;
     }
 }

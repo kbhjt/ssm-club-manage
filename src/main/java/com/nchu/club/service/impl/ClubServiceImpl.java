@@ -4,6 +4,7 @@ import com.nchu.club.dao.ClubDao;
 import com.nchu.club.dao.UserDao;
 import com.nchu.club.domain.Club;
 import com.nchu.club.service.ClubService;
+import com.nchu.club.tablevo.ClubTableVo;
 import com.nchu.club.vo.ClubVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,14 @@ public class ClubServiceImpl implements ClubService {
     private UserDao userDao;
 
     @Override
-    public List<ClubVo> getAllClub(int page,int limit) {
+    public ClubTableVo getAllClub(int page, int limit) {
         List<ClubVo> clubVoList = new ArrayList<>();
         List<Club> clubList = clubDao.selectAllClubs();
+        ClubTableVo clubTableVo = new ClubTableVo();
         for (Club club : clubList) {
-            String cleader = club.getCleader();
+            Integer cleader = club.getCleader();
             String uname = "";
-            if(cleader != null && !cleader.equals("")) {
+            if(cleader != null) {
                 uname = userDao.selectById(cleader).getUname();
             }
             ClubVo clubVo = new ClubVo();
@@ -35,6 +37,8 @@ public class ClubServiceImpl implements ClubService {
             clubVo.setCleader(uname);
             clubVo.setCreateTime(club.getCreateTime());
             clubVo.setUpdateTime(club.getUpdateTime());
+            clubVo.setCimage(club.getCimage());
+            clubVo.setCintroduce(club.getCintroduce());
             clubVoList.add(clubVo);
 
         }
@@ -50,20 +54,31 @@ public class ClubServiceImpl implements ClubService {
         int start = (page - 1) * limit;
         System.out.println(start);
         int length = limit;
-        System.out.println(length);
+        int end = start + length;
         List<ClubVo> newList = new ArrayList<>();
-        if(length >= clubVoList.size()) {
-            length = clubVoList.size();
+        if(end >= clubVoList.size()) {
+            end = clubVoList.size();
         }
-        System.out.println(length);
-        for (int i = start; i < length ; i++) {
+        for (int i = start; i < end ; i++) {
             newList.add(clubVoList.get(i));
         }
-        return newList;
+        clubTableVo.setCount(total);
+        clubTableVo.setData(newList);
+        return clubTableVo;
     }
 
     @Override
     public List<Club> getClubByUid(int uid) {
         return clubDao.selectClubByUid(uid);
+    }
+
+    @Override
+    public List<Club> selectAllClubs() {
+        return clubDao.selectAllClubs();
+    }
+
+    @Override
+    public Club getClubByCid(int cid) {
+        return clubDao.selectClubById(cid);
     }
 }

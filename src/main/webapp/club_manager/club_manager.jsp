@@ -53,7 +53,7 @@
                 <a href="javascript:;">活动管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="list" data-title="活动信息" data-id="11" id="default-tab-activity" class="site-demo-active"
+                        <a href="#" data-url="activity_message" data-title="活动信息" data-id="11" id="default-tab-activity" class="site-demo-active"
                            data-type="tabAdd">
                             活动信息
                         </a>
@@ -82,7 +82,7 @@
                 <a href="javascript:;">用户管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="list" data-title="用户信息" data-id="55" class="site-demo-active"
+                        <a href="#" data-url="user_message" data-title="用户信息" data-id="55" class="site-demo-active"
                            data-type="tabAdd">
                             用户信息
                         </a>
@@ -94,9 +94,15 @@
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="成员审核" data-id="77" class="site-demo-active"
+                        <a href="#" data-url="club_apply" data-title="成员审核" data-id="77" class="site-demo-active"
                            data-type="tabAdd">
                             成员审核
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#" data-url="apply_record" data-title="审核记录" data-id="88" class="site-demo-active"
+                           data-type="tabAdd">
+                            审核记录
                         </a>
                     </dd>
                 </dl>
@@ -105,13 +111,13 @@
                 <a href="javascript:;">个人管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="person_message" data-title="个人资料" data-id="88" class="site-demo-active"
+                        <a href="#" data-url="person_message" data-title="个人资料" data-id="99" class="site-demo-active"
                            data-type="tabAdd">
                             个人资料
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="update_password" data-title="修改密码" data-id="99" class="site-demo-active"
+                        <a href="#" data-url="update_password" data-title="修改密码" data-id="100" class="site-demo-active"
                            data-type="tabAdd">
                             修改密码
                         </a>

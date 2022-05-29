@@ -22,8 +22,8 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="${pageContext.request.contextPath}/images/avatar/${user.uimage}" class="layui-nav-img">
-                    用户
+                    <img src="${user.uimage}" class="layui-nav-img">
+                    ${user.uname}
                 </a>
                 <dl class="layui-nav-child">
                     <dd>
@@ -53,7 +53,7 @@
                 <dl class="layui-nav-child">
                     <dd>
                         <a href="#" data-url="home" data-title="首页" data-id="11" class="site-demo-active"
-                           data-type="tabAdd">
+                           data-type="tabAdd" id="default-tab">
                             首页
                         </a>
                     </dd>
@@ -95,7 +95,11 @@
                             修改密码
                         </a>
                     </dd>
-
+                </dl>
+            </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">我的社团</a>
+                <dl class="layui-nav-child" id="my_club">
                 </dl>
             </li>
         </ul>
@@ -132,6 +136,35 @@
 <script src="${pageContext.request.contextPath}/css/layui-v2.6.3/layui.js"></script>
 
 <script>
+    $(document).ready(function(){
+        getClub()
+    })
+    //发送一个ajax请求查询该用户加入的社团
+    function getClub() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/club/getClubByUid',
+            data : {
+                uid: ${user.uid}
+            },
+            success : function(res) {
+                console.log(res)
+                if(res != null) {
+                    var strs = '';
+                    for (let i = 0; i < res.length; i++) {
+                        var href = 'cid='+res[i].cid+'&uid='+${user.uid}
+                        var str = '<dd>\n' +
+                            '                        <a href="${pageContext.request.contextPath}/club/detail?'+href+'" data-url="person_message" data-title="'+res[i].cname+'" data-id="'+44+i+'" class="site-demo-active"\n' +
+                            '                           data-type="tabAdd">\n' +
+                            res[i].cname +
+                            '                        </a>\n' +
+                            '                    </dd>'
+                        strs += str;
+                    }
+                    $('#my_club').html(strs)
+                }
+            }
+        })
+    }
 
     layui.use(['element','layer'], function () {
         var $ = layui.jquery;
@@ -168,8 +201,6 @@
             }
 
         };
-
-
         // 当点击有site-demo-active属性的标签时，即左侧菜单栏中内容 ，触发点击事件
         $('.site-demo-active').on('click', function () {
             var dataid = $(this);

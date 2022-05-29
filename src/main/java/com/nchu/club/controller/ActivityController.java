@@ -1,18 +1,22 @@
 package com.nchu.club.controller;
 
+import com.nchu.club.domain.Activity;
+import com.nchu.club.domain.Club;
 import com.nchu.club.service.ActivityService;
-import com.nchu.club.vo.ActivityAllDataVo;
-import com.nchu.club.vo.ActivityDataVo;
-import com.nchu.club.vo.ActivityPeopleNumVo;
+import com.nchu.club.service.ClubService;
+import com.nchu.club.service.UserService;
+import com.nchu.club.tablevo.ActivityTableVo;
+import com.nchu.club.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
 
 @Controller
 @RequestMapping("/activity")
@@ -20,6 +24,10 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private ClubService clubService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/getActivityData")
     @ResponseBody
@@ -54,5 +62,39 @@ public class ActivityController {
         }
         ActivityAllDataVo activityAllDataVo = new ActivityAllDataVo(list,activityList,manList,womanList);
         return activityAllDataVo;
+    }
+
+    @RequestMapping("/getActivityByCid")
+    @ResponseBody
+    public ActivityTableVo getActivityByCid(int cid, int page, int limit) {
+        return activityService.getActivityByCid(cid, page, limit);
+    }
+
+    @RequestMapping("/getAllClubActivity")
+    @ResponseBody
+    public List<Activity> getAllClubActivity(int page,int limit,Model model) {
+        model.addAttribute("total",activityService.getAllClubActivity().size());
+        return activityService.getAllClubActivity(page, limit);
+    }
+
+    @RequestMapping("/detail")
+    public ModelAndView getActivityDetail(int aid) {
+        List<Activity> activityList = activityService.getAllClubActivity();
+        ClubActivityVo clubActivityVo = new ClubActivityVo();
+        String uname = "";
+        for (Activity activity : activityList) {
+            if(activity.getAid() == aid) {
+                clubActivityVo.setActivity(activity);
+                Club club = clubService.getClubByCid(activity.getCid());
+                clubActivityVo.setClub(club);
+                uname = userService.getUserByUid(club.getCleader()).getUname();
+                break;
+            }
+        }
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("activity",clubActivityVo);
+        modelAndView.addObject("uname",uname);
+        modelAndView.setViewName("/student/activity_detail");
+        return  modelAndView;
     }
 }

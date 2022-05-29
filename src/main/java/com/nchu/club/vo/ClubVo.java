@@ -6,15 +6,19 @@ public class ClubVo {
     private String cleader;
     private String createTime;
     private String updateTime;
+    private String cimage;
+    private String cintroduce;
 
     public ClubVo() {}
 
-    public ClubVo(Integer cid, String cname, String cleader, String createTime, String updateTime) {
+    public ClubVo(Integer cid, String cname, String cleader, String createTime, String updateTime, String cimage, String cintroduce) {
         this.cid = cid;
         this.cname = cname;
         this.cleader = cleader;
         this.createTime = createTime;
         this.updateTime = updateTime;
+        this.cimage = cimage;
+        this.cintroduce = cintroduce;
     }
 
     public Integer getCid() {
@@ -55,5 +59,21 @@ public class ClubVo {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getCimage() {
+        return cimage;
+    }
+
+    public void setCimage(String cimage) {
+        this.cimage = cimage;
+    }
+
+    public String getCintroduce() {
+        return cintroduce;
+    }
+
+    public void setCintroduce(String cintroduce) {
+        this.cintroduce = cintroduce;
     }
 }

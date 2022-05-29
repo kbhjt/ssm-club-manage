@@ -105,6 +105,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             data = data.field;
+            console.log(data)
             $.ajax({
                 type: 'post',
                 url: '${pageContext.request.contextPath}/user/update_user',

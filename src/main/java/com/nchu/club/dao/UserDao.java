@@ -32,7 +32,7 @@ public interface UserDao {
             " from user u,role r,club_member c" +
             " where c.uid = u.uid and c.rid = r.roleId" +
             " and u.uid = #{uid}")
-    User selectById(String uid);
+    User selectById(int uid);
 
     //查找社团成员
     @Select("select u.*" +
@@ -54,5 +54,19 @@ public interface UserDao {
     @Update("update user set upassword = #{upassword} where uemail = #{uemail}")
     int updatePassword(User user);
 
+    //查询社团负责人
+    @Select("select * from user where uid = #{uid}")
+    User getUserByUid(int uid);
 
+    //更新club_member表同意加入社团
+    @Update("update club_member set cid = #{cid}" +
+            " where uid = #{uid} and cid = 0")
+    int updateClubMemberAgree(@Param("uid") int uid,
+                              @Param("cid") int cid);
+
+    //更新club_member表退出社团
+    @Update("update club_member set cid = 0" +
+            " where uid = #{uid} and cid = #{cid}")
+    int updateClubMemberOut(@Param("uid") int uid,
+                            @Param("cid") int cid);
 }

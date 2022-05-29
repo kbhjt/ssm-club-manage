@@ -1,0 +1,139 @@
+.card-de{
+    border-radius: 10px;
+    margin: 20px;
+}
+.aso{
+    color: #7c7d81;
+}
+.theme-info{
+    height: 80px;
+    line-height: unset;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.theme-name{
+    margin-left: 12px;
+}
+
+img{
+    border-radius: 10px;
+}
+.ac-name{
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.cl-name{
+    font-size: 16px;
+    color: #0074EC;
+}
+
+span{
+    color: #333336;
+}
+
+.info{
+    margin: 0px 35px;
+    line-height: 25px;
+}
+
+.intro{
+    height: 30px;
+    line-height: unset;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.talk-name{
+    display: flex;
+    flex-direction: row;
+    color: #7c7d81;
+    margin: 0px 20px;
+}
+
+.talk-p{
+    margin-right: 10px;
+}
+
+.talk-info{
+    margin-top: 10px;
+    color: #333336;
+    margin: 0px 20px;
+}
+
+.talk-notice{
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.talk-t{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 5px 20px;
+}
+.btn{
+    display:flex;
+    flex-direction: row-reverse;
+    margin-top: 20px;
+}
+
+.btn-space{
+    margin-right: 30px;
+}
+
+.btn-sub{
+    background-image: linear-gradient(120deg, #0074EC 0%, #32C5FF 100%);
+}
+
+button{
+    width: 90px;
+    border-radius: 50px !important;
+}
+
+.club-name{
+    font-size: 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #0074EC;
+}
+
+.leader-name{
+    color: #0ED57D;
+}
+
+.btn-con{
+    width: unset;
+}
+
+
+.btnw-color{
+    border: 1px solid  #0074EC;
+    color: #0074EC;
+    background-color: white;
+}
+
+.btn-color1{
+    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+}
+
+.btn-color2{
+    background-image: linear-gradient(to top, #48c6ef 0%, #6f86d6 100%);
+}
+
+.btn-color3{
+    background-image: linear-gradient(60deg, #96deda 0%, #50c9c3 100%);
+}
+
+.btn-color4{
+    background-image: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%);
+}
+
+.tag{
+    display: flex;
+    flex-direction: row;
+}

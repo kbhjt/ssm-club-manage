@@ -18,4 +18,9 @@ public class RoleServiceImpl implements RoleService {
     public List<Role> findAll() {
         return roleDao.selectAll();
     }
+
+    @Override
+    public Role findUserRole(int uid,int cid) {
+        return roleDao.selectUserRole(uid,cid);
+    }
 }

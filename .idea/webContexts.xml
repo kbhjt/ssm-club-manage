@@ -8,6 +8,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/club_manager/person_message.jsp" value="file://$PROJECT_DIR$/src/main/webapp/club_manager" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/reset_password.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/student/club.jsp" value="file://$PROJECT_DIR$/src/main/webapp/student" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/student/student.jsp" value="file://$PROJECT_DIR$/src/main/webapp/student" />
       </map>
     </option>

@@ -1,11 +1,15 @@
 package com.nchu.club.controller;
 
 import com.nchu.club.domain.Club;
+import com.nchu.club.domain.Role;
 import com.nchu.club.domain.User;
 import com.nchu.club.service.ClubService;
+import com.nchu.club.service.RoleService;
 import com.nchu.club.service.UserService;
 import com.nchu.club.utils.Md5Util;
 import com.nchu.club.utils.SendmailUtil;
+import com.nchu.club.vo.ClubUserTableVo;
+import com.nchu.club.vo.ClubUserVo;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,12 +37,17 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ClubService clubService;
+    @Autowired
+    private RoleService roleService;
 
     //登录
     @RequestMapping("/login")
     @ResponseBody
     public String login(String username, String password, String utype, HttpServletRequest request) {
         User user = userService.login(username, password, Integer.valueOf(utype));
+        if(user.getUimage() == null || user.getUimage().equals("")) {
+            user.setUimage("https://img0.baidu.com/it/u=1942253063,3807598283&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
+        }
         if (user != null) {
             List<Club> club = clubService.getClubByUid(user.getUid());
             if(club != null && club.size() > 0) {
@@ -192,6 +201,13 @@ public class UserController {
         //退出登录将session对象的数据清空
         request.getSession().invalidate();
         return "redirect:/login.jsp";
+    }
+
+    //获取社团所有成员信息
+    @RequestMapping("/getClubUsers")
+    @ResponseBody
+    public ClubUserTableVo getClubUsers(int cid,int page,int limit) {
+        return userService.getTableUsers(cid, page, limit);
     }
 
 }

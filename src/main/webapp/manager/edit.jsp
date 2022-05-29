@@ -68,7 +68,9 @@
 
         //监听提交
         form.on('submit(formDemo)', function(data){
-            layer.msg(JSON.stringify(data.field));
+            data = data.field;
+            console.log(data)
+            // layer.msg(JSON.stringify(data.field));
             return false;
         });
     });

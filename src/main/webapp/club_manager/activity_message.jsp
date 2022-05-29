@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2022-05-15
-  Time: 14:53
+  Date: 2022-05-25
+  Time: 17:32
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -42,7 +42,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '${pageContext.request.contextPath}/club/get_club',
+            url: '${pageContext.request.contextPath}/activity/getActivityByCid?cid='+${club.cid},
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -51,11 +51,11 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'cid', width: 200, title: 'ID', sort: true},
-                {field: 'cname', width: 200, title: '社团名称'},
-                {field: 'cleader', width: 200, title: '社团负责人', sort: true},
-                {field: 'createTime', width: 200, title: '创建时间'},
-                {field: 'updateTime', title: '修改时间', minWidth: 150},
+                {field: 'aid', width: 200, title: 'ID', sort: true},
+                {field: 'aname', width: 200, title: '活动名称'},
+                {field: 'abegintime', width: 200, title: '开始时间', sort: true},
+                {field: 'aendtime', width: 200, title: '结束时间'},
+                {field: 'peopleLimit', title: '人数限制', minWidth: 150},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -70,7 +70,7 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加社团',
+                    title: '添加活动',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,
@@ -96,15 +96,10 @@
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
             console.log(data)
-            if((data.cleader == null || data.cleader == '') && i == 1) {
-                layer.msg('请添加社团负责人')
-                i++;
-                return false;
-            }
             if (obj.event === 'edit') {
                 i = 1;
                 var index = layer.open({
-                    title: '编辑社团',
+                    title: '编辑活动',
                     type: 2,
                     shade: 0.2,
                     maxmin:true,

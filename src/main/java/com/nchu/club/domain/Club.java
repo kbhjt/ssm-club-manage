@@ -5,15 +5,16 @@ public class Club {
     private Integer cid;         //社团id
     private String cname;       //社团名称
     private String cintroduce;  //社团介绍
-    private String cleader;     //社团负责人
-    private String chelper;     //社团助理
+    private Integer cleader;     //社团负责人
+    private Integer chelper;     //社团助理
     private String createTime;  //创建时间
     private String updateTime;  //修改时间
+    private String cimage; //社团图片
     private int isDelete;         //删除标记位（假删除）
 
     public Club() {}
 
-    public Club(Integer cid, String cname, String cintroduce, String cleader, String chelper, String createTime, String updateTime, int delete) {
+    public Club(Integer cid, String cname, String cintroduce, Integer cleader, Integer chelper, String createTime, String updateTime, String cimage, int isDelete) {
         this.cid = cid;
         this.cname = cname;
         this.cintroduce = cintroduce;
@@ -21,7 +22,8 @@ public class Club {
         this.chelper = chelper;
         this.createTime = createTime;
         this.updateTime = updateTime;
-        this.isDelete = delete;
+        this.cimage = cimage;
+        this.isDelete = isDelete;
     }
 
     public Integer getCid() {
@@ -48,28 +50,20 @@ public class Club {
         this.cintroduce = cintroduce;
     }
 
-    public String getCleader() {
+    public Integer getCleader() {
         return cleader;
     }
 
-    public void setCleader(String cleader) {
+    public void setCleader(Integer cleader) {
         this.cleader = cleader;
     }
 
-    public String getChelper() {
+    public Integer getChelper() {
         return chelper;
     }
 
-    public void setChelper(String chelper) {
+    public void setChelper(Integer chelper) {
         this.chelper = chelper;
-    }
-
-    public int getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(int isDelete) {
-        this.isDelete = isDelete;
     }
 
     public String getCreateTime() {
@@ -86,5 +80,21 @@ public class Club {
 
     public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getCimage() {
+        return cimage;
+    }
+
+    public void setCimage(String cimage) {
+        this.cimage = cimage;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
 }
