@@ -2,6 +2,7 @@ package com.nchu.club.service.impl;
 
 import com.nchu.club.dao.ClubDao;
 import com.nchu.club.dao.UserDao;
+import com.nchu.club.domain.CMessage;
 import com.nchu.club.domain.Club;
 import com.nchu.club.service.ClubService;
 import com.nchu.club.tablevo.ClubTableVo;
@@ -81,4 +82,21 @@ public class ClubServiceImpl implements ClubService {
     public Club getClubByCid(int cid) {
         return clubDao.selectClubById(cid);
     }
+
+    @Override
+    public Integer getIsClubHelper(int uid, int cid) {
+        return clubDao.selectClubHelper(uid, cid);
+    }
+
+    @Override
+    public int addCMessage(CMessage cMessage) {
+        return clubDao.addCMessage(cMessage);
+    }
+
+    @Override
+    public List<CMessage> getCMessageByCid(int cid) {
+        return clubDao.selectCMeassgeByCid(cid);
+    }
+
+
 }

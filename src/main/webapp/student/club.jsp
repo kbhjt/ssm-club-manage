@@ -93,7 +93,7 @@
                 pages = total / data.length
                 var strs = '';
                 for (let i = 0; i < data.length; i++) {
-                    var href = 'cid='+data[i].cid+'&uid='+${user.uid}
+                    var href = 'cid='+data[i].cid+'&uid='+${student.uid}
                     var str = '<div class="card">\n' +
                         '        <div>\n' +
                         '            <img src="'+data[i].cimage+'" alt="Avatar" class="poto">\n' +

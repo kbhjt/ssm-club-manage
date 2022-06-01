@@ -45,6 +45,11 @@ public class UserController {
     @ResponseBody
     public String login(String username, String password, String utype, HttpServletRequest request) {
         User user = userService.login(username, password, Integer.valueOf(utype));
+        if(user == null) {
+            if(utype.equals("4") || utype.equals("2")) {
+                user = userService.login(username,password,3);
+            }
+        }
         if(user.getUimage() == null || user.getUimage().equals("")) {
             user.setUimage("https://img0.baidu.com/it/u=1942253063,3807598283&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500");
         }
@@ -52,8 +57,14 @@ public class UserController {
             List<Club> club = clubService.getClubByUid(user.getUid());
             if(club != null && club.size() > 0) {
                 request.getSession().setAttribute("club",club.get(0));
+              }
+            if (utype.equals("4") || utype.equals("3")) {
+                request.getSession().setAttribute("student",user);
+            }else if (utype.equals("2")){
+                request.getSession().setAttribute("user",user);
+            }else if(utype.equals("1")) {
+                request.getSession().setAttribute("super",user);
             }
-            request.getSession().setAttribute("user",user);
             return "登录成功";
         }
         return "账号或密码错误";
@@ -197,9 +208,17 @@ public class UserController {
 
     //退出登录
     @RequestMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public String logout(String utype,HttpServletRequest request) {
         //退出登录将session对象的数据清空
-        request.getSession().invalidate();
+        if (utype.equals("1")) { //超级管理员
+            request.getSession().removeAttribute("super");
+        }else if(utype.equals("2")) { //社团负责人
+            request.getSession().removeAttribute("user");
+        }else if(utype.equals("4")) { //学生
+            request.getSession().removeAttribute("student");
+            return "redirect:/student/login.jsp";
+        }
+
         return "redirect:/login.jsp";
     }
 

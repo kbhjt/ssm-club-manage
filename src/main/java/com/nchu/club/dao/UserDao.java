@@ -69,4 +69,14 @@ public interface UserDao {
             " where uid = #{uid} and cid = #{cid}")
     int updateClubMemberOut(@Param("uid") int uid,
                             @Param("cid") int cid);
+
+    //将信息插入到club_member表中 如果存在一个新的社团
+    @Insert("insert into club_member values(#{uid},#{cid},#{rid},0)")
+    int insertClubMember(@Param("uid") int uid,
+                         @Param("cid") int cid,
+                         @Param("rid") int rid);
+
+    @Delete("delete from club_member where uid = #{uid} and cid = #{cid}")
+    int deleteClubMemer(@Param("uid") int uid,
+                        @Param("cid") int cid);
 }

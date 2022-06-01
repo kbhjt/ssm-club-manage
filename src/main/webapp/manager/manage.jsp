@@ -35,7 +35,7 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="/user/logout">退出</a>
+                <a href="${pageContext.request.contextPath}/user/logout?utype=1">退出</a>
             </li>
         </ul>
     </div>

@@ -1,5 +1,6 @@
 package com.nchu.club.dao;
 
+import com.nchu.club.domain.Apply;
 import com.nchu.club.domain.Club;
 import com.nchu.club.vo.ApplyClubVo;
 import org.apache.ibatis.annotations.Insert;
@@ -40,6 +41,20 @@ public interface ApplyClubDao {
     //查询用户还在审核中的社团
     @Select("select c.* from apply_club a,club c" +
             " where c.cid = a.cid" +
-            " and a.uid = #{uid}")
+            " and a.uid = #{uid}" +
+            " and isAgree = 0")
     List<Club> getClubByUid(int uid);
+
+    //同意申请助理请求
+    //将club_member表中用户的rid该为3
+    @Update("update club_member set rid = #{rid} where uid = #{uid} and cid = #{cid}")
+    int updateRid(@Param("uid") int uid,
+                  @Param("cid") int cid,
+                  @Param("rid") int rid);
+
+    //查询社团中指定条件的申请
+    @Select("select * from apply_club where uid = #{uid} and cid = #{cid} and isAgree = 0")
+    Apply selectOne(@Param("uid") int uid,
+                    @Param("cid") int cid);
+
 }

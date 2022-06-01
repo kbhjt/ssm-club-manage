@@ -1,5 +1,6 @@
 package com.nchu.club.dao;
 
+import com.nchu.club.domain.CMessage;
 import com.nchu.club.domain.Club;
 import com.nchu.club.domain.User;
 import org.apache.ibatis.annotations.Insert;
@@ -52,4 +53,16 @@ public interface ClubDao {
             " and c1.uid = #{uid}")
     List<Club> selectClubByUid(int uid);
 
+    //查询用户是否为该社团的助理
+    @Select("select cid from club_member where uid = #{uid} and cid = #{cid} and rid = 3")
+    Integer selectClubHelper(@Param("uid") int uid,
+                             @Param("cid") int cid);
+
+    @Insert("insert into club_message(cid,uid,cmessage,mcreateTime,isDelete) values(#{cid},#{uid}," +
+            "#{cmessage},#{mcreateTime},0)")
+    int addCMessage(CMessage cMessage);
+
+    //根据cid查询所有的留言内容
+    @Select("select * from club_message where cid = #{cid}")
+    List<CMessage> selectCMeassgeByCid(int cid);
 }

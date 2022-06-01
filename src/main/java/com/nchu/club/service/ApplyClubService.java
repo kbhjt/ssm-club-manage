@@ -1,5 +1,6 @@
 package com.nchu.club.service;
 
+import com.nchu.club.domain.Apply;
 import com.nchu.club.domain.Club;
 import com.nchu.club.tablevo.ApplyClubTableVo;
 import com.nchu.club.vo.ApplyClubVo;
@@ -24,4 +25,7 @@ public interface ApplyClubService {
 
     //查询用户还在审核中的社团
     List<Club> getExamineClub(int uid);
+
+    //查询指定条件的申请
+    Apply getOneApply(int uid,int cid);
 }

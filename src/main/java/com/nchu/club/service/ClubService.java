@@ -1,5 +1,6 @@
 package com.nchu.club.service;
 
+import com.nchu.club.domain.CMessage;
 import com.nchu.club.domain.Club;
 import com.nchu.club.tablevo.ClubTableVo;
 
@@ -18,4 +19,13 @@ public interface ClubService {
 
     //通过社团id获取指定社团
     Club getClubByCid(int cid);
+
+    //查询用户是否是该社团的助理
+    Integer getIsClubHelper(int uid, int cid);
+
+    //新增社团页留言
+    int addCMessage(CMessage cMessage);
+
+    List<CMessage> getCMessageByCid(int cid);
+
 }

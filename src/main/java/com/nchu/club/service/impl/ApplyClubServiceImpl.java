@@ -1,7 +1,9 @@
 package com.nchu.club.service.impl;
 
 import com.nchu.club.dao.ApplyClubDao;
+import com.nchu.club.dao.ClubDao;
 import com.nchu.club.dao.UserDao;
+import com.nchu.club.domain.Apply;
 import com.nchu.club.domain.Club;
 import com.nchu.club.service.ApplyClubService;
 import com.nchu.club.tablevo.ApplyClubTableVo;
@@ -19,6 +21,8 @@ public class ApplyClubServiceImpl implements ApplyClubService {
     private ApplyClubDao applyClubDao;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private ClubDao clubDao;
 
     @Override
     public int addClubApply(int uid, int cid, String isOut) {
@@ -83,19 +87,37 @@ public class ApplyClubServiceImpl implements ApplyClubService {
 
     @Override
     public int agreeApply(int id,int uid,int cid,String isOut) {
+        List<Club> clubList = clubDao.selectClubByUid(uid);
         if(applyClubDao.updateApplyByAgree(id) > 0) {
-            if(isOut.equals("加入")) { //申请加入社团
-                if (userDao.updateClubMemberAgree(uid,cid) > 0) {
-                    System.out.println("更新1？");
-                    return 1;
+            if(isOut.equals("加入社团")) { //申请加入社团
+                if(clubList != null || clubList.size() != 0) { //向club_member表中新增一条数据
+                    if(userDao.insertClubMember(uid,cid,4) > 0) {
+                        System.out.println("插入1");
+                        return 1;
+                    }
+                }else {//如果为空 说明数据库中用户所对应的cid=0 需要更新
+                    if (userDao.updateClubMemberAgree(uid,cid) > 0) {
+                        System.out.println("更新1？");
+                        return 1;
+                    }
                 }
-            }else { //申请退出社团
-                if (userDao.updateClubMemberOut(uid,cid) > 0) {
-                    System.out.println("更新2？");
+            }else if(isOut.equals("申请退出")){ //申请退出社团
+                if(clubList.size() == 1) { //将cid更新为0
+                    if (userDao.updateClubMemberOut(uid,cid) > 0) {
+                        System.out.println("退出1？");
+                        return 1;
+                    }
+                }else if(clubList.size() > 1){ //大于1 在club_member表中删除该条记录
+                    if(userDao.deleteClubMemer(uid,cid) > 0) {
+                        System.out.println("退出2");
+                        return 1;
+                    }
+                }
+            }else { //申请助理
+                if(applyClubDao.updateRid(uid,cid,3) > 0) {
                     return 1;
                 }
             }
-
         }
         System.out.println("???");
         return 0;
@@ -110,4 +132,11 @@ public class ApplyClubServiceImpl implements ApplyClubService {
     public List<Club> getExamineClub(int uid) {
         return applyClubDao.getClubByUid(uid);
     }
+
+    @Override
+    public Apply getOneApply(int uid, int cid) {
+        return applyClubDao.selectOne(uid,cid);
+    }
+
+
 }

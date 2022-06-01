@@ -94,6 +94,7 @@
         var i = 1;
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
+            console.log(data)
             if (obj.event === 'agree') {
                 $.ajax({
                     url: '${pageContext.request.contextPath}/apply/agreeClubApply',
@@ -106,7 +107,10 @@
                     },
                     success : function (res) {
                         if(res == '操作成功') {
-                            layer.msg("操作成功",function (){});
+                            layer.msg("操作成功",{time:2000},function (){
+                                window.location.reload();
+                            });
+
                         }else {
                             layer.msg("服务器异常，操作失败",function (){});
                         }

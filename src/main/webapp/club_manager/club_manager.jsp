@@ -18,11 +18,11 @@
 <!-- 顶部区域 -->
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">${club.cname}社团管理系统</div>
+        <div class="layui-logo">${club.cname}</div>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="${pageContext.request.contextPath}/images/avatar/${user.uimage}" class="layui-nav-img">
+                    <img src="${user.uimage}" class="layui-nav-img">
                     ${user.uname}
                 </a>
                 <dl class="layui-nav-child">
@@ -40,7 +40,7 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="${pageContext.request.contextPath}/user/logout">退出</a>
+                <a href="${pageContext.request.contextPath}/user/logout?utype=2">退出</a>
             </li>
         </ul>
     </div>

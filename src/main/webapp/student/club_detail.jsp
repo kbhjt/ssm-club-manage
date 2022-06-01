@@ -35,9 +35,12 @@
                 <div style="font-size: 16px;color: #7c7d81;">
                     社长 <span>${userName}</span>
                 </div>
-                <div style="display: inline-block;padding-left: 600px">
-                    <a id="apply" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 150px" href="#">加入社团</a>
-                </div>
+            </div>
+            <div style="display: inline-block;margin-left: 300px">
+                <a id="apply" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 125px" href="#">加入社团</a>
+            </div>
+            <div id="helper" style="display: none;margin-left: 50px">
+                <a id="apply_helper" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 125px" href="#">申请助理</a>
             </div>
         </div>
         <!-- 具体详细信息 -->
@@ -95,39 +98,36 @@
                     </div>
                 </div>
             </div>
-            <!-- 讨论 -->
             <div class="layui-tab-item info">
+
                 <!-- 提交留言 -->
                 <div class="talk-notice">参与留言</div>
-                <textarea name="" required lay-verify="required" placeholder="大家可以畅所欲言！"
+                <textarea id="message" name="message" required lay-verify="required" placeholder="大家可以畅所欲言！"
                           class="layui-textarea"></textarea>
                 <div class="btn">
-                    <button class="layui-btn layui-btn-normal btn-sub">提交</button>
-                    <button class="layui-btn layui-btn-primary layui-border-blue btn-space">取消</button>
+                    <button id="submit" class="layui-btn layui-btn-normal btn-sub" lay-event="submit">提交</button>
+                    <button id="cancel" class="layui-btn layui-btn-primary layui-border-blue btn-space">取消</button>
                 </div>
+
             </div>
+
         </div>
     </div>
     <!-- 讨论列表 -->
     <div class="layui-panel card-de">
         <div class="layui-card-header talk-t">留言板</div>
-        <div class="layui-card-body talk">
-            <div class="talk-name">
-                <div class="talk-p">高小昊</div>
-                <div>05-20 16:41</div>
-            </div>
-            <div class="talk-info">
-                文学社美女很多，大家收获多多！
-            </div>
+        <div id="talk-area" class="layui-card-body talk">
         </div>
     </div>
 </div>
 <script>
     $(document).ready(function(){
+        getTalk();
         var exist = '${exist}'
         if(exist == 1) { //该用户已经加入了该社团
-            $('#apply').attr("class","layui-btn layui-btn-disabled");
-            $('#apply').text('已加入')
+            $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
+            $('#apply').text('申请退出')
+            $('#helper').css('display','')
         }
         var examine = '${examine}'
         if(examine == 1) {
@@ -139,12 +139,13 @@
             $(this).css("color","white")
         });
         $('#apply').click(function() {
+            var content = $('#apply').text();
             $.ajax({
                 url: "${pageContext.request.contextPath}/apply/applyClub",
                 data: {
-                    uid: ${user.uid},
+                    uid: ${student.uid},
                     cid: ${club.cid},
-                    isOut: '加入'
+                    isOut: content
                 },
                 success: function(res) {
                     console.log(res);
@@ -154,7 +155,90 @@
                 }
             })
         });
+        var applyExist = '${applyExist}'
+        if (applyExist == 1) {
+            $('#apply_helper').attr("class","layui-btn layui-btn-disabled");
+            $('#apply_helper').text("审核中")
+            $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
+            $('#apply').text('申请退出')
+        }else if(applyExist == 2){
+            $('#apply_helper').attr("class","layui-btn layui-btn-radius");
+            $('#apply_helper').text("进入社团管理")
+            $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
+            $('#apply').text('申请退出')
+        }
+        var content = $('#apply_helper').text();
+        console.log(content);
+        if (content != '进入社团管理') {
+            $('#apply_helper').click(function() {
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/apply/applyClub",
+                    data: {
+                        uid: ${student.uid},
+                        cid: ${club.cid},
+                        isOut: content
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        $('#apply_helper').attr("class","layui-btn layui-btn-disabled");
+                        $('#apply_helper').text("审核中")
+                        layer.msg("已申请，正在审核中",function (){});
+                    }
+                })
+            })
+        }else {
+
+        }
+
     });
+    function getTalk(){
+        $.ajax({
+            url: "${pageContext.request.contextPath}/club/getCMessageByCid",
+            data: {
+                cid: ${club.cid},
+            },
+            success: function(res) {
+                console.log(res.length);
+                var htmlstr = '';
+                for(let i = 0;i < res.length; i++){
+                    var html = '<div class="talk-name">\n'+
+                        '     <div class="talk-p">'+'${student.uname}'+'</div>\n'+
+                        ' <div>'+res[i].mcreateTime+'</div>\n'+
+                        '</div>\n'+
+                        '<div class="talk-info">\n'+
+                        res[i].cmessage+
+                        '</div>\n'
+                    htmlstr += html;
+                }
+                $("#talk-area").html(htmlstr)
+            }
+        })
+    }
+    $("#finish").click(function(){
+        $(this).css("background-image","linear-gradient(to top, #48c6ef 0%, #6f86d6 100%)");
+        $(this).css("color","white")
+    });
+    $("#cancel").click(function (){
+        $("#message").val("");
+    });
+    $("#submit").click(function (){
+        var content = $("#message").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/club/addCMessage",
+            data: {
+                cid: ${club.cid},
+                uid: ${student.uid},
+                cmessage: content
+            },
+            success: function(res) {
+                console.log(res);
+
+                layer.msg("提交成功",function (){});
+                getTalk();
+            }
+        })
+
+    })
 </script>
 </body>
 </html>

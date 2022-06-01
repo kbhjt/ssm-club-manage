@@ -40,7 +40,8 @@ public class ApplyClubController {
 
     @RequestMapping("/agreeClubApply")
     @ResponseBody
-    public String agreeClubApply(int id,int uid,int cid,String isOut) {
+    public String agreeClubApply(Integer id,Integer uid,Integer cid,String isOut) {
+        System.out.println(id+" "+uid+" "+cid+" " + isOut);
         if(applyClubService.agreeApply(id, uid, cid, isOut) > 0) {
             return "操作成功";
         }

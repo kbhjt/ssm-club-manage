@@ -22,8 +22,8 @@
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="${user.uimage}" class="layui-nav-img">
-                    ${user.uname}
+                    <img src="${student.uimage}" class="layui-nav-img">
+                    ${student.uname}
                 </a>
                 <dl class="layui-nav-child">
                     <dd>
@@ -40,7 +40,7 @@
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="${pageContext.request.contextPath}/user/logout">退出</a>
+                <a href="${pageContext.request.contextPath}/user/logout?utype=4">退出</a>
             </li>
         </ul>
     </div>
@@ -66,16 +66,6 @@
                         <a href="#" data-url="club" data-title="社团广场" data-id="22" class="site-demo-active"
                            data-type="tabAdd">
                             社团广场
-                        </a>
-                    </dd>
-                </dl>
-            </li>
-            <li class="layui-nav-item layui-nav-itemed">
-                <dl class="layui-nav-child">
-                    <dd>
-                        <a href="#" data-url="activity" data-title="活动广场" data-id="33" class="site-demo-active"
-                           data-type="tabAdd">
-                            活动广场
                         </a>
                     </dd>
                 </dl>
@@ -144,14 +134,14 @@
         $.ajax({
             url: '${pageContext.request.contextPath}/club/getClubByUid',
             data : {
-                uid: ${user.uid}
+                uid: ${student.uid}
             },
             success : function(res) {
                 console.log(res)
                 if(res != null) {
                     var strs = '';
                     for (let i = 0; i < res.length; i++) {
-                        var href = 'cid='+res[i].cid+'&uid='+${user.uid}
+                        var href = 'cid='+res[i].cid+'&uid='+${student.uid}
                         var str = '<dd>\n' +
                             '                        <a href="${pageContext.request.contextPath}/club/detail?'+href+'" data-url="person_message" data-title="'+res[i].cname+'" data-id="'+44+i+'" class="site-demo-active"\n' +
                             '                           data-type="tabAdd">\n' +
@@ -175,9 +165,6 @@
             tabAdd: function (url, id, name) {
                 if (url == 'update_password') {
                     url = '${pageContext.request.contextPath}/update_password'
-                }
-                if(url == 'person_message') {
-                    url = '${pageContext.request.contextPath}/person_message'
                 }
                 element.tabAdd('demo', {
                     title: name,
