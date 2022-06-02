@@ -1,13 +1,12 @@
 package com.nchu.club.controller;
 
-import com.nchu.club.domain.Apply;
-import com.nchu.club.domain.CMessage;
-import com.nchu.club.domain.Club;
-import com.nchu.club.domain.User;
+import com.nchu.club.domain.*;
 import com.nchu.club.service.ApplyClubService;
 import com.nchu.club.service.ClubService;
+import com.nchu.club.service.RoleService;
 import com.nchu.club.service.UserService;
 import com.nchu.club.tablevo.ClubTableVo;
+import com.nchu.club.vo.CMessageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +29,8 @@ public class ClubController {
     private UserService userService;
     @Autowired
     private ApplyClubService applyClubService;
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping("/get_club")
     @ResponseBody
@@ -73,6 +75,7 @@ public class ClubController {
         if(examineClub != null && examineClub.size() != 0) {
             for (Club examine : examineClub) {
                 if(examine.getCid() == cid) {
+                    System.out.println("ssk"+examine.getCid());
                     mv.addObject("examine",1);
                     break;
                 }
@@ -115,11 +118,20 @@ public class ClubController {
         return clubService.addCMessage(cMessage);
     }
 
-
     @RequestMapping("/getCMessageByCid")
     @ResponseBody
-    public List<CMessage> getCMessageByCid(String cid) {
+    public List<CMessageVo> getCMessageByCid(String cid) {
         return clubService.getCMessageByCid(Integer.parseInt(cid));
     }
 
+    @RequestMapping("/edit_user")
+    @ResponseBody
+    public ModelAndView toEditUser(Integer uid) {
+        //查找用户信息
+        User user = userService.getUserByUid(uid);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("editUser",user);
+        mv.setViewName("/club_manager/edit_user");
+        return mv;
+    }
 }

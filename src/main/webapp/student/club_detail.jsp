@@ -130,31 +130,44 @@
             $('#helper').css('display','')
         }
         var examine = '${examine}'
+        console.log(examine)
         if(examine == 1) {
             $('#apply').attr("class","layui-btn layui-btn-disabled");
             $('#apply').text('审核中')
+            console.log("sss")
         }
         $("button").click(function(){
             $(this).css("background-image","linear-gradient(to top, #48c6ef 0%, #6f86d6 100%)");
             $(this).css("color","white")
         });
-        $('#apply').click(function() {
-            var content = $('#apply').text();
-            $.ajax({
-                url: "${pageContext.request.contextPath}/apply/applyClub",
-                data: {
-                    uid: ${student.uid},
-                    cid: ${club.cid},
-                    isOut: content
-                },
-                success: function(res) {
-                    console.log(res);
-                    $('#apply').attr("class","layui-btn layui-btn-disabled");
-                    $('#apply').text("审核中")
-                    layer.msg("已申请，正在审核中",function (){});
-                }
-            })
-        });
+        var content1 = $('#apply').text();
+        console.log(content1)
+        var count = 0;
+        if(content1 != '审核中') {
+            if( count < 2) {
+                $('#apply').click(function() {
+                    var content = $('#apply').text();
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/apply/applyClub",
+                        data: {
+                            uid: ${student.uid},
+                            cid: ${club.cid},
+                            isOut: content
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            layer.msg("已申请，正在审核中",function (){
+                                $('#apply').attr("class","layui-btn layui-btn-disabled");
+                                $('#apply').text("审核中")
+                                count += 1
+                            });
+                        }
+                    })
+                });
+            }
+
+        }
+
         var applyExist = '${applyExist}'
         if (applyExist == 1) {
             $('#apply_helper').attr("class","layui-btn layui-btn-disabled");
@@ -163,13 +176,12 @@
             $('#apply').text('申请退出')
         }else if(applyExist == 2){
             $('#apply_helper').attr("class","layui-btn layui-btn-radius");
-            $('#apply_helper').text("进入社团管理")
+            $('#apply_helper').text("社团助理")
             $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
             $('#apply').text('申请退出')
         }
         var content = $('#apply_helper').text();
-        console.log(content);
-        if (content != '进入社团管理') {
+        if (content != '社团助理') {
             $('#apply_helper').click(function() {
                 $.ajax({
                     url: "${pageContext.request.contextPath}/apply/applyClub",
@@ -186,10 +198,7 @@
                     }
                 })
             })
-        }else {
-
         }
-
     });
     function getTalk(){
         $.ajax({
@@ -202,7 +211,7 @@
                 var htmlstr = '';
                 for(let i = 0;i < res.length; i++){
                     var html = '<div class="talk-name">\n'+
-                        '     <div class="talk-p">'+'${student.uname}'+'</div>\n'+
+                        '     <div class="talk-p">'+res[i].uname+'</div>\n'+
                         ' <div>'+res[i].mcreateTime+'</div>\n'+
                         '</div>\n'+
                         '<div class="talk-info">\n'+

@@ -3,6 +3,7 @@ package com.nchu.club.service;
 import com.nchu.club.domain.CMessage;
 import com.nchu.club.domain.Club;
 import com.nchu.club.tablevo.ClubTableVo;
+import com.nchu.club.vo.CMessageVo;
 
 import java.util.List;
 
@@ -26,6 +27,6 @@ public interface ClubService {
     //新增社团页留言
     int addCMessage(CMessage cMessage);
 
-    List<CMessage> getCMessageByCid(int cid);
+    List<CMessageVo> getCMessageByCid(int cid);
 
 }

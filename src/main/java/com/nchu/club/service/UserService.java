@@ -34,4 +34,7 @@ public interface UserService {
 
     //查询指定用户
     User getUserByUid(int uid);
+
+    //更新角色
+    int updateUserRole(int uid,int cid,int rid);
 }

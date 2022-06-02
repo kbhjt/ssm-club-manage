@@ -57,4 +57,6 @@ public class Apply {
     public void setIsDelete(int isDelete) {
         this.isDelete = isDelete;
     }
+
+
 }

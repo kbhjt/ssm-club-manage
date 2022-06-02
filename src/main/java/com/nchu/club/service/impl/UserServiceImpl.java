@@ -1,5 +1,6 @@
 package com.nchu.club.service.impl;
 
+import com.nchu.club.dao.ApplyClubDao;
 import com.nchu.club.dao.RoleDao;
 import com.nchu.club.dao.UserDao;
 import com.nchu.club.domain.Role;
@@ -20,6 +21,8 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
     @Autowired
     private RoleDao roleDao;
+    @Autowired
+    private ApplyClubDao applyClubDao;
 
     @Override
     public User login(String uid,String upassword,int roleId) {
@@ -101,4 +104,11 @@ public class UserServiceImpl implements UserService {
     public User getUserByUid(int uid) {
         return userDao.getUserByUid(uid);
     }
+
+    @Override
+    public int updateUserRole(int uid, int cid, int rid) {
+        return applyClubDao.updateRid(uid,cid,rid);
+    }
+
+
 }

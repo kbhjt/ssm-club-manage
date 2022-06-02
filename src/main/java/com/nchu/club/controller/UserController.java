@@ -206,6 +206,25 @@ public class UserController {
         }
     }
 
+    //设置学生个人信息
+    @RequestMapping("/update_student")
+    @ResponseBody
+    public String updateStudent(String uclass,String unick,String uemail,String uimage,String usign,String uno,HttpServletRequest request) {
+        User user = new User();
+        user.setUclass(uclass);
+        user.setUnick(unick);
+        user.setUemail(uemail);
+        user.setUimage(uimage);
+        user.setUsign(usign);
+        user.setUno(uno);
+        int result = userService.updatePersonalMessage(user);
+        if(result > 0) {
+            request.getSession().setAttribute("student",user);
+            return "保存成功";
+        }else {
+            return "服务器异常，保存失败";
+        }
+    }
     //退出登录
     @RequestMapping("/logout")
     public String logout(String utype,HttpServletRequest request) {
@@ -229,4 +248,10 @@ public class UserController {
         return userService.getTableUsers(cid, page, limit);
     }
 
+    //更新社团用户角色
+    @RequestMapping("/updateUserRole")
+    @ResponseBody
+    public int updateUserRole(int uid,int cid,int rid) {
+        return userService.updateUserRole(uid, cid, rid);
+    }
 }

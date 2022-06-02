@@ -108,7 +108,7 @@
             console.log(data)
             $.ajax({
                 type: 'post',
-                url: '${pageContext.request.contextPath}/user/update_user',
+                url: '${pageContext.request.contextPath}/user/update_student',
                 data: {
                     uclass: data.uclass,
                     unick: data.unick,

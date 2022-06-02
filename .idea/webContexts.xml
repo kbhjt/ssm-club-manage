@@ -5,6 +5,7 @@
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/club_manager/activity_data.jsp" value="file://$PROJECT_DIR$/src/main/webapp/club_manager" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/club_manager/club_manager.jsp" value="file://$PROJECT_DIR$/src/main/webapp/club_manager" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/club_manager/edit_user.jsp" value="file://$PROJECT_DIR$/src/main/webapp/club_manager" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/club_manager/person_message.jsp" value="file://$PROJECT_DIR$/src/main/webapp/club_manager" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/login.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/reset_password.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />

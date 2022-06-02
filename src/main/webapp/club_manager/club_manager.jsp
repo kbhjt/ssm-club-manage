@@ -88,12 +88,6 @@
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="角色信息" data-id="66" class="site-demo-active"
-                           data-type="tabAdd">
-                            角色信息
-                        </a>
-                    </dd>
-                    <dd>
                         <a href="#" data-url="club_apply" data-title="成员审核" data-id="77" class="site-demo-active"
                            data-type="tabAdd">
                             成员审核

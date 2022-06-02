@@ -4,8 +4,10 @@ import com.nchu.club.dao.ClubDao;
 import com.nchu.club.dao.UserDao;
 import com.nchu.club.domain.CMessage;
 import com.nchu.club.domain.Club;
+import com.nchu.club.domain.User;
 import com.nchu.club.service.ClubService;
 import com.nchu.club.tablevo.ClubTableVo;
+import com.nchu.club.vo.CMessageVo;
 import com.nchu.club.vo.ClubVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -94,8 +96,21 @@ public class ClubServiceImpl implements ClubService {
     }
 
     @Override
-    public List<CMessage> getCMessageByCid(int cid) {
-        return clubDao.selectCMeassgeByCid(cid);
+    public List<CMessageVo> getCMessageByCid(int cid) {
+        List<CMessage> cMessageList = clubDao.selectCMeassgeByCid(cid);
+        List<CMessageVo> voList = new ArrayList<>();
+        for (CMessage cMessage : cMessageList) {
+            User user = userDao.getUserByUid(cMessage.getUid());
+            CMessageVo vo = new CMessageVo();
+            vo.setUid(cMessage.getUid());
+            vo.setCid(cMessage.getCid());
+            vo.setMid(cMessage.getMid());
+            vo.setCmessage(cMessage.getCmessage());
+            vo.setMcreateTime(cMessage.getMcreateTime());
+            vo.setUname(user.getUname());
+            voList.add(vo);
+        }
+        return voList;
     }
 
 

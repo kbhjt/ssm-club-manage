@@ -1,12 +1,11 @@
 <%--
   Created by IntelliJ IDEA.
   User: lenovo
-  Date: 2022-05-25
-  Time: 19:40
+  Date: 2022-06-02
+  Time: 10:35
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -27,7 +26,6 @@
         <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
         <script type="text/html" id="currentTableBar">
-            <a id="edit" class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
         </script>
 
@@ -42,7 +40,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '${pageContext.request.contextPath}/user/getClubUsers?cid='+${club.cid},
+            url: '${pageContext.request.contextPath}/apply/getAllDoneApplyClub?cid='+${club.cid},
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -51,10 +49,11 @@
             }],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'uno', width: 200, title: '学号', sort: true},
-                {field: 'uname', width: 200, title: '姓名'},
-                {field: 'roleName', width: 200, title: '角色', sort: true},
+                {field: 'id', width: 200, title: 'ID', sort: true},
+                // {field: 'uno', width: 200, title: '学号'},
+                {field: 'uname', width: 200, title: '姓名', sort: true},
                 {field: 'uemail', width: 200, title: '邮箱'},
+                {field: 'isOut', width: 200, title: '申请内容'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [10, 15, 20, 25, 50, 100],
@@ -67,20 +66,7 @@
          * toolbar监听事件
          */
         table.on('toolbar(currentTableFilter)', function (obj) {
-            if (obj.event === 'add') {  // 监听添加操作
-                var index = layer.open({
-                    title: '添加活动',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['100%', '100%'],
-                    content: '../page/table/add.html',
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-            } else if (obj.event === 'delete') {  // 监听删除操作
+            if (obj.event === 'delete') {  // 监听删除操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
@@ -94,21 +80,29 @@
         var i = 1;
         table.on('tool(currentTableFilter)', function (obj) {
             var data = obj.data;
-            if (obj.event === 'edit') {
-                i = 1;
-                var index = layer.open({
-                    title: '查看信息',
-                    type: 2,
-                    shade: 0.2,
-                    maxmin:true,
-                    shadeClose: true,
-                    area: ['40%', '85%'],
-                    content: '${pageContext.request.contextPath}/club/edit_user?uid='+data.uid,
-                });
-                $(window).on("resize", function () {
-                    layer.full(index);
-                });
-                return false;
+            console.log(data)
+            if (obj.event === 'agree') {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/apply/agreeClubApply',
+                    type: 'post',
+                    data: {
+                        id: data.id,
+                        uid: data.uid,
+                        cid: '${club.cid}',
+                        isOut: data.isOut
+                    },
+                    success : function (res) {
+                        if(res == '操作成功') {
+                            layer.msg("操作成功",{time:2000},function (){
+                                window.location.reload();
+                            });
+
+                        }else {
+                            layer.msg("服务器异常，操作失败",function (){});
+                        }
+                    }
+                })
+
             } else if (obj.event === 'delete') {
                 layer.confirm('真的删除行么', function (index) {
                     obj.del();
