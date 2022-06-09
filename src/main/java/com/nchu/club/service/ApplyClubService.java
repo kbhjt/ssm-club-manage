@@ -1,9 +1,9 @@
 package com.nchu.club.service;
 
-import com.nchu.club.domain.Apply;
+import com.nchu.club.domain.ApplyClub;
 import com.nchu.club.domain.Club;
 import com.nchu.club.tablevo.ApplyClubTableVo;
-import com.nchu.club.vo.ApplyClubVo;
+
 import java.util.List;
 
 public interface ApplyClubService {
@@ -27,5 +27,5 @@ public interface ApplyClubService {
     List<Club> getExamineClub(int uid);
 
     //查询指定条件的申请
-    Apply getOneApply(int uid,int cid);
+    ApplyClub getOneApply(int uid, int cid);
 }

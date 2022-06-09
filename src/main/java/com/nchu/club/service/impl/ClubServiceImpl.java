@@ -2,10 +2,10 @@ package com.nchu.club.service.impl;
 
 import com.nchu.club.dao.ClubDao;
 import com.nchu.club.dao.UserDao;
-import com.nchu.club.domain.CMessage;
-import com.nchu.club.domain.Club;
-import com.nchu.club.domain.User;
+import com.nchu.club.domain.*;
 import com.nchu.club.service.ClubService;
+import com.nchu.club.tablevo.ActivityTableVo;
+import com.nchu.club.tablevo.CMessageTableVo;
 import com.nchu.club.tablevo.ClubTableVo;
 import com.nchu.club.vo.CMessageVo;
 import com.nchu.club.vo.ClubVo;
@@ -111,6 +111,49 @@ public class ClubServiceImpl implements ClubService {
             voList.add(vo);
         }
         return voList;
+    }
+
+    @Override
+    public int addCTag(CTag cTag) {
+        return clubDao.addCTage(cTag);
+    }
+
+    @Override
+    public List<String> getCTagByCid(int cid) {
+        return clubDao.getCTagByCid(cid);
+    }
+
+    @Override
+    public CMessageTableVo getMessageVo(int page, int limit, int cid) {
+        List<CMessageVo> messageVoList = this.getCMessageByCid(cid);
+        if (page < 1) {
+            page = 1;
+        }
+        int total = messageVoList.size();
+        int max = total % limit == 0 ? total / limit : (total / limit + 1);
+        max = Math.max(1,max); //严谨判断 确保max不小于1
+        if(page > max){
+            page = max;
+        }
+        int start = (page - 1) * limit;
+        int length = limit;
+        int end = start + length;
+        if(end >= total) {
+            end = total;
+        }
+        List<CMessageVo> newList = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            newList.add(messageVoList.get(i));
+        }
+        CMessageTableVo cMessageTableVo = new CMessageTableVo();
+        cMessageTableVo.setCount(total);
+        cMessageTableVo.setData(newList);
+        return cMessageTableVo;
+    }
+
+    @Override
+    public int deleteCMeassge(int mid) {
+        return clubDao.deleteCMeassge(mid);
     }
 
 

@@ -1,6 +1,7 @@
 package com.nchu.club.service;
 
 import com.nchu.club.domain.Activity;
+import com.nchu.club.domain.CTalk;
 import com.nchu.club.tablevo.ActivityTableVo;
 import com.nchu.club.vo.*;
 
@@ -22,5 +23,22 @@ public interface ActivityService {
 
     //查询所有社团活动
     List<Activity> getAllClubActivity();
+
+    //查询用户参加的活动
+    List<Activity> getActivityByUid(int uid);
+
+    //新增活动页留言
+    int addCTalk(CTalk cTalk);
+    //查找活动留言
+    List<CTalk> getCTalkByAid(int aid);
+    //删除活动留言
+    int deleteCtalk(int aid);
+    //关闭和开启活动讨论
+    int isOpenComment(int iscomment,int aid);
+    //查找活动讨论状态
+    int findIsOpen(int aid);
+
+
+
 
 }

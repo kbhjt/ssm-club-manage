@@ -2,6 +2,7 @@ package com.nchu.club.service.impl;
 
 import com.nchu.club.dao.ActivityDao;
 import com.nchu.club.domain.Activity;
+import com.nchu.club.domain.CTalk;
 import com.nchu.club.service.ActivityService;
 import com.nchu.club.tablevo.ActivityTableVo;
 import com.nchu.club.vo.*;
@@ -80,9 +81,40 @@ public class ActivityServiceImpl implements ActivityService {
         return newList;
     }
 
+
+    @Override
+    public List<Activity> getActivityByUid(int uid) {
+        return activityDao.selectActivityByUid(uid);
+    }
+
     @Override
     public List<Activity> getAllClubActivity() {
         return activityDao.selectAllActivity();
+    }
+
+    @Override
+    public int addCTalk(CTalk cTalk) {
+        return activityDao.addCTalk(cTalk);
+    }
+
+    @Override
+    public List<CTalk> getCTalkByAid(int aid) {
+        return activityDao.selectCTalkByAid(aid);
+    }
+
+    @Override
+    public int deleteCtalk(int aid) {
+        return 0;
+    }
+
+    @Override
+    public int isOpenComment(int iscomment, int aid) {
+        return  activityDao.updataIsopencomment(iscomment,aid);
+    }
+
+    @Override
+    public int findIsOpen(int aid) {
+        return activityDao.findIsOpen(aid);
     }
 
 }

@@ -1,29 +1,26 @@
 package com.nchu.club.domain;
 
 public class Apply {
-
-    private int id;
+    private int applyid;
     private int uid;
-    private int cid;
-    private String isOut;
-    private int isDelete;
+    private String uname;
+    private String aname;
+    private String data;
 
-    public Apply() {}
-
-    public Apply(int id, int uid, int cid, String isOut, int isDelete) {
-        this.id = id;
+    public Apply(int applyid, int uid, String uname, String aname, String data) {
+        this.applyid = applyid;
         this.uid = uid;
-        this.cid = cid;
-        this.isOut = isOut;
-        this.isDelete = isDelete;
+        this.uname = uname;
+        this.aname = aname;
+        this.data = data;
     }
 
-    public int getId() {
-        return id;
+    public int getApplyid() {
+        return applyid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setApplyid(int applyid) {
+        this.applyid = applyid;
     }
 
     public int getUid() {
@@ -34,29 +31,27 @@ public class Apply {
         this.uid = uid;
     }
 
-    public int getCid() {
-        return cid;
+    public String getUname() {
+        return uname;
     }
 
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
-    public String getIsOut() {
-        return isOut;
+    public String getAname() {
+        return aname;
     }
 
-    public void setIsOut(String isOut) {
-        this.isOut = isOut;
+    public void setAname(String aname) {
+        this.aname = aname;
     }
 
-    public int getIsDelete() {
-        return isDelete;
+    public String getData() {
+        return data;
     }
 
-    public void setIsDelete(int isDelete) {
-        this.isDelete = isDelete;
+    public void setData(String data) {
+        this.data = data;
     }
-
-
 }

@@ -50,7 +50,7 @@
     <div class="layui-tab  layui-side layui-tab-card site-demo-button">
         <ul class="layui-nav layui-side layui-nav-tree layui-nav-side">
             <li class="layui-nav-item layui-nav-itemed">
-                <a href="javascript:;">活动管理</a>
+                <a href="javascript:;">社团管理</a>
                 <dl class="layui-nav-child">
                     <dd>
                         <a href="#" data-url="activity_message" data-title="活动信息" data-id="11" id="default-tab-activity" class="site-demo-active"
@@ -59,22 +59,29 @@
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="password" data-title="报名审核" data-id="22" class="site-demo-active"
+                        <a href="#" data-url="auditing_enlist" data-title="报名审核" data-id="22" class="site-demo-active"
                            data-type="tabAdd">
                             报名审核
                         </a>
                     </dd>
                     <dd>
-                        <a href="#" data-url="profile" data-title="活动评论" data-id="33" class="site-demo-active"
+                        <a href="#" data-url="activity_evaluate" data-title="活动评论" data-id="33" class="site-demo-active"
                            data-type="tabAdd">
                             活动评论
                         </a>
-                    </dd><dd>
-                    <a href="#" data-url="activity_data" data-title="活动统计" data-id="44" id="default-tab"  class="site-demo-active"
-                       data-type="tabAdd">
-                        活动统计
-                    </a>
-                </dd>
+                    </dd>
+                    <dd>
+                        <a href="#" data-url="activity_data" data-title="活动统计" data-id="44" id="default-tab"  class="site-demo-active"
+                           data-type="tabAdd">
+                            活动统计
+                        </a>
+                    </dd>
+                    <dd>
+                        <a href="#" data-url="delete_message" data-title="删除留言" data-id="200" id="default-tab-message"  class="site-demo-active"
+                           data-type="tabAdd">
+                            社团留言
+                        </a>
+                    </dd>
                 </dl>
             </li>
 

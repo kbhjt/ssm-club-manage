@@ -64,7 +64,7 @@
                 <a href="javascript:;">活动管理</a>
                 <dl class="layui-nav-child">
                     <dd>
-                        <a href="#" data-url="profile" data-title="活动信息" data-id="44" class="site-demo-active"
+                        <a href="#" data-url="activity_format" data-title="活动信息" data-id="44" class="site-demo-active"
                            data-type="tabAdd">
                             活动信息
                         </a>

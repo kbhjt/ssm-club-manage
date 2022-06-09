@@ -1,6 +1,7 @@
 package com.nchu.club.dao;
 
 import com.nchu.club.domain.Activity;
+import com.nchu.club.domain.CTalk;
 import com.nchu.club.vo.ActivityDataVo;
 import com.nchu.club.vo.ActivityPeopleNumVo;
 import com.nchu.club.vo.ClubActivityVo;
@@ -57,5 +58,27 @@ public interface ActivityDao {
     @Select("select count(a1.uid) as value,a2.aname as name from activity_user a1,activity a2 where a1.aid = a2.aid and a2.cid = #{cid} GROUP BY a1.aid")
     List<ActivityPeopleNumVo> selectActivityPeopleNum(int cid);
 
+    //查询用户所参加的活动
+    @Select("select a.* from activity a,apply_activity a1" +
+            " where a1.aid = a.aid" +
+            " and a1.uid = #{uid}" +
+            " and a1.isAgree = 1")
+    List<Activity> selectActivityByUid(int uid);
 
+    @Insert("insert into activity_comment(aid,uid,cmessage,mcreateTime,isDelete) values(#{aid},#{uid}," +
+            "#{cmessage},#{mcreateTime},0)")
+    int addCTalk(CTalk cTalk);
+
+    //根据cid查询所有的留言内容
+    @Select("select * from activity_comment where aid = #{aid}")
+    List<CTalk> selectCTalkByAid(int aid);
+
+    @Update("UPDATE activity_comment SET activity_comment.isDelete = 1 WHERE activity_comment.tid = #{tid}")
+    int upateCtalk(int tid);
+
+    @Update("UPDATE activity SET activity.iscomment = #{iscomment} WHERE activity.aid = #{aid}")
+    int updataIsopencomment(@Param("iscomment") int iscomment,@Param("aid") int aid);
+
+    @Select("SELECT activity.iscomment FROM activity WHERE activity.aid = #{aid}")
+    int findIsOpen(int aid);
 }

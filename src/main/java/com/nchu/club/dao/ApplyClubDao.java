@@ -1,6 +1,6 @@
 package com.nchu.club.dao;
 
-import com.nchu.club.domain.Apply;
+import com.nchu.club.domain.ApplyClub;
 import com.nchu.club.domain.Club;
 import com.nchu.club.vo.ApplyClubVo;
 import org.apache.ibatis.annotations.Insert;
@@ -54,7 +54,7 @@ public interface ApplyClubDao {
 
     //查询社团中指定条件的申请
     @Select("select * from apply_club where uid = #{uid} and cid = #{cid} and isAgree = 0")
-    Apply selectOne(@Param("uid") int uid,
-                    @Param("cid") int cid);
+    ApplyClub selectOne(@Param("uid") int uid,
+                        @Param("cid") int cid);
 
 }

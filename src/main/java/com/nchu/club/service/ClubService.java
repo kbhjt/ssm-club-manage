@@ -1,7 +1,9 @@
 package com.nchu.club.service;
 
 import com.nchu.club.domain.CMessage;
+import com.nchu.club.domain.CTag;
 import com.nchu.club.domain.Club;
+import com.nchu.club.tablevo.CMessageTableVo;
 import com.nchu.club.tablevo.ClubTableVo;
 import com.nchu.club.vo.CMessageVo;
 
@@ -29,4 +31,13 @@ public interface ClubService {
 
     List<CMessageVo> getCMessageByCid(int cid);
 
+    //新增社团印象标签
+    int addCTag(CTag cTag);
+
+    //获取该社团印象标签
+    List<String> getCTagByCid(int cid);
+
+    CMessageTableVo getMessageVo(int page,int limit,int cid);
+
+    int deleteCMeassge(int mid);
 }

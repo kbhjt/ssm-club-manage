@@ -40,7 +40,7 @@
 
         table.render({
             elem: '#currentTableId',
-            url: '${pageContext.request.contextPath}/apply/getAllDoneApplyClub?cid='+${club.cid},
+            url: '${pageContext.request.contextPath}/applyClub/getAllDoneApplyClub?cid='+${club.cid},
             toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports', 'print', {
                 title: '提示',
@@ -83,7 +83,7 @@
             console.log(data)
             if (obj.event === 'agree') {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/apply/agreeClubApply',
+                    url: '${pageContext.request.contextPath}/applyClub/agreeClubApply',
                     type: 'post',
                     data: {
                         id: data.id,

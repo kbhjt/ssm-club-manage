@@ -13,6 +13,7 @@
     <link href="${pageContext.request.contextPath}/css/layui-v2.6.3/css/layui.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/activity_detail.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/css/layui-v2.6.3/layui.js"></script>
+    <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <div class="layui-container">
@@ -33,7 +34,7 @@
                     ${activity.club.cname}
                 </div>
                 <div id="add" style="display: inline-block;padding-left: 600px">
-                    <button class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 150px">加入活动</button>
+                    <button id="applyClub" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 150px">加入活动</button>
                 </div>
             </div>
         </div>
@@ -109,5 +110,25 @@
     </div>
 </div>
 </body>
+<script>
+    var content = $('#applyClub').text()
+    $('#applyClub').click(function() {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/apply_activity/applyActivity",
+            data: {
+                uid: ${student.uid},
+                aid: ${activity.aid},
+                content: content
+            },
+            success: function(res) {
+                console.log(res);
+                layer.msg("已申请，正在审核中",function (){
+                    $('#applyClub').attr("class","layui-btn layui-btn-disabled");
+                    $('#applyClub').text("审核中")
+                });
+            }
+        })
+    })
+</script>
 </html>
 

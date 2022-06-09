@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div style="display: inline-block;margin-left: 300px">
-                <a id="apply" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 125px" href="#">加入社团</a>
+                <a id="applyClub" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 125px" href="#">加入社团</a>
             </div>
             <div id="helper" style="display: none;margin-left: 50px">
                 <a id="apply_helper" class="layui-btn layui-btn-radius layui-btn-warm layui-icon layui-icon-add-circle" style="width: 125px" href="#">申请助理</a>
@@ -53,6 +53,9 @@
             </div>
             <div>
                 社团人数：<span>50人</span>
+            </div>
+            <div>
+                印象标签：<span id="ctag"></span>
             </div>
         </div>
     </div>
@@ -75,25 +78,27 @@
                 <div class="layui-card">
                     <div class="layui-card-header intro tag"><span style="width: 100%;">添加印象标签</span>
                         <span style="margin-left: 40%;width: 20%;font-weight: 300;font-size: 16px;">
-								<div class="layui-btn layui-btn-primary layui-btn-sm">
+								<div id="finish" class="layui-btn layui-btn-primary layui-btn-sm">
 								    <i class="layui-icon">&#xe605;完成</i>
 								  </div>
 							</span>
                     </div>
                     <div class="layui-card-body">
                         <div class="layui-btn-container" style="margin-top: 20px;">
-                            <button type="button" class="layui-btn btn-con btnw-color">仙气十足</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">手工</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">聚会</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">乐器达人</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">行走的CD</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">桌游</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">中二病晚期</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">背包客</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">民谣</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">二次元</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">小动物</button>
-                            <button type="button" class="layui-btn btn-con btnw-color">男神</button>
+                            <div class="layui-btn-container" style="margin-top: 20px;">
+                                <button id=“b1” type="button" class="layui-btn btn-con btnw-color">仙气十足</button>
+                                <button id=“b2” type="button" class="layui-btn btn-con btnw-color">手工</button>
+                                <button id=“b3” type="button" class="layui-btn btn-con btnw-color">聚会</button>
+                                <button id=“b4” type="button" class="layui-btn btn-con btnw-color">乐器达人</button>
+                                <button id=“b5” type="button" class="layui-btn btn-con btnw-color">行走的CD</button>
+                                <button id=“b6” type="button" class="layui-btn btn-con btnw-color">桌游</button>
+                                <button id=“b7” type="button" class="layui-btn btn-con btnw-color">中二病晚期</button>
+                                <button id=“b8” type="button" class="layui-btn btn-con btnw-color">背包客</button>
+                                <button id=“b9” type="button" class="layui-btn btn-con btnw-color">民谣</button>
+                                <button id=“b10” type="button" class="layui-btn btn-con btnw-color">二次元</button>
+                                <button id=“b11” type="button" class="layui-btn btn-con btnw-color">小动物</button>
+                                <button id=“b12” type="button" class="layui-btn btn-con btnw-color">男神</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,32 +128,33 @@
 <script>
     $(document).ready(function(){
         getTalk();
+        getCTag();
         var exist = '${exist}'
         if(exist == 1) { //该用户已经加入了该社团
-            $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
-            $('#apply').text('申请退出')
+            $('#applyClub').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
+            $('#applyClub').text('申请退出')
             $('#helper').css('display','')
         }
         var examine = '${examine}'
         console.log(examine)
         if(examine == 1) {
-            $('#apply').attr("class","layui-btn layui-btn-disabled");
-            $('#apply').text('审核中')
+            $('#applyClub').attr("class","layui-btn layui-btn-disabled");
+            $('#applyClub').text('审核中')
             console.log("sss")
         }
         $("button").click(function(){
             $(this).css("background-image","linear-gradient(to top, #48c6ef 0%, #6f86d6 100%)");
             $(this).css("color","white")
         });
-        var content1 = $('#apply').text();
+        var content1 = $('#applyClub').text();
         console.log(content1)
         var count = 0;
         if(content1 != '审核中') {
             if( count < 2) {
-                $('#apply').click(function() {
-                    var content = $('#apply').text();
+                $('#applyClub').click(function() {
+                    var content = $('#applyClub').text();
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/apply/applyClub",
+                        url: "${pageContext.request.contextPath}/applyClub/applyClub",
                         data: {
                             uid: ${student.uid},
                             cid: ${club.cid},
@@ -157,8 +163,8 @@
                         success: function(res) {
                             console.log(res);
                             layer.msg("已申请，正在审核中",function (){
-                                $('#apply').attr("class","layui-btn layui-btn-disabled");
-                                $('#apply').text("审核中")
+                                $('#applyClub').attr("class","layui-btn layui-btn-disabled");
+                                $('#applyClub').text("审核中")
                                 count += 1
                             });
                         }
@@ -172,19 +178,19 @@
         if (applyExist == 1) {
             $('#apply_helper').attr("class","layui-btn layui-btn-disabled");
             $('#apply_helper').text("审核中")
-            $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
-            $('#apply').text('申请退出')
+            $('#applyClub').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
+            $('#applyClub').text('申请退出')
         }else if(applyExist == 2){
             $('#apply_helper').attr("class","layui-btn layui-btn-radius");
             $('#apply_helper').text("社团助理")
-            $('#apply').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
-            $('#apply').text('申请退出')
+            $('#applyClub').attr("class","layui-btn layui-btn-danger layui-btn-radius  layui-icon layui-icon-reduce-circle");
+            $('#applyClub').text('申请退出')
         }
         var content = $('#apply_helper').text();
         if (content != '社团助理') {
             $('#apply_helper').click(function() {
                 $.ajax({
-                    url: "${pageContext.request.contextPath}/apply/applyClub",
+                    url: "${pageContext.request.contextPath}/applyClub/applyClub",
                     data: {
                         uid: ${student.uid},
                         cid: ${club.cid},
@@ -200,6 +206,51 @@
             })
         }
     });
+    var str = '';
+    $(".btnw-color").click(function () {
+        $(this).css("background-image", "linear-gradient(to top, #48c6ef 0%, #6f86d6 100%)");
+        $(this).css("color", "white")
+        str += $(this)[0].innerText + ","
+    })
+    $("#finish").click(function () {
+        $(this).css("background-image", "linear-gradient(to top, #48c6ef 0%, #6f86d6 100%)");
+        $(this).css("color", "white")
+        $.ajax({
+            url: "${pageContext.request.contextPath}/club/addCTag",
+            data: {
+                cid: ${club.cid},
+                ctag: str
+            },
+            success: function (res) {
+                console.log(res);
+                layer.msg("提交成功", function () {
+                });
+                getCTag();
+            }
+        })
+    });
+    $("#cancel").click(function (){
+        $("#message").val("");
+    });
+    $("#submit").click(function (){
+        var content = $("#message").val();
+        $.ajax({
+            url: "${pageContext.request.contextPath}/club/addCMessage",
+            data: {
+                cid: ${club.cid},
+                uid: ${student.uid},
+                cmessage: content
+            },
+            success: function(res) {
+                console.log(res);
+
+                layer.msg("提交成功",function (){});
+                getTalk();
+            }
+        })
+
+    })
+
     function getTalk(){
         $.ajax({
             url: "${pageContext.request.contextPath}/club/getCMessageByCid",
@@ -223,31 +274,19 @@
             }
         })
     }
-    $("#finish").click(function(){
-        $(this).css("background-image","linear-gradient(to top, #48c6ef 0%, #6f86d6 100%)");
-        $(this).css("color","white")
-    });
-    $("#cancel").click(function (){
-        $("#message").val("");
-    });
-    $("#submit").click(function (){
-        var content = $("#message").val();
+    function getCTag() {
         $.ajax({
-            url: "${pageContext.request.contextPath}/club/addCMessage",
+            url: "${pageContext.request.contextPath}/club/getCTagByCid",
             data: {
                 cid: ${club.cid},
-                uid: ${student.uid},
-                cmessage: content
             },
-            success: function(res) {
-                console.log(res);
-
-                layer.msg("提交成功",function (){});
-                getTalk();
+            success: function (res) {
+                console.log(res)
+                var html = '<span>'+res[0]+'、'+res[1]+'、'+res[2]+'<span>'
+                $("#ctag").html(html)
             }
         })
-
-    })
+    }
 </script>
 </body>
 </html>

@@ -3,7 +3,7 @@ package com.nchu.club.service.impl;
 import com.nchu.club.dao.ApplyClubDao;
 import com.nchu.club.dao.ClubDao;
 import com.nchu.club.dao.UserDao;
-import com.nchu.club.domain.Apply;
+import com.nchu.club.domain.ApplyClub;
 import com.nchu.club.domain.Club;
 import com.nchu.club.service.ApplyClubService;
 import com.nchu.club.tablevo.ApplyClubTableVo;
@@ -88,9 +88,10 @@ public class ApplyClubServiceImpl implements ApplyClubService {
     @Override
     public int agreeApply(int id,int uid,int cid,String isOut) {
         List<Club> clubList = clubDao.selectClubByUid(uid);
+        System.out.println(clubList.size());
         if(applyClubDao.updateApplyByAgree(id) > 0) {
             if(isOut.equals("加入社团")) { //申请加入社团
-                if(clubList != null || clubList.size() != 0) { //向club_member表中新增一条数据
+                if(clubList != null && clubList.size() != 0) { //向club_member表中新增一条数据
                     if(userDao.insertClubMember(uid,cid,4) > 0) {
                         System.out.println("插入1");
                         return 1;
@@ -134,7 +135,7 @@ public class ApplyClubServiceImpl implements ApplyClubService {
     }
 
     @Override
-    public Apply getOneApply(int uid, int cid) {
+    public ApplyClub getOneApply(int uid, int cid) {
         return applyClubDao.selectOne(uid,cid);
     }
 

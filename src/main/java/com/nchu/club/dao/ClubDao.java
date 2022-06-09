@@ -1,6 +1,7 @@
 package com.nchu.club.dao;
 
 import com.nchu.club.domain.CMessage;
+import com.nchu.club.domain.CTag;
 import com.nchu.club.domain.Club;
 import com.nchu.club.domain.User;
 import org.apache.ibatis.annotations.Insert;
@@ -63,6 +64,17 @@ public interface ClubDao {
     int addCMessage(CMessage cMessage);
 
     //根据cid查询所有的留言内容
-    @Select("select * from club_message where cid = #{cid}")
+    @Select("select * from club_message where cid = #{cid} and isDelete = 0")
     List<CMessage> selectCMeassgeByCid(int cid);
+
+    @Insert("insert into club_tag(cid,ctag) values(#{cid},#{ctag})")
+    int addCTage(CTag cTag);
+
+    @Select("select ctag from club_tag where cid = #{cid}")
+    List<String> getCTagByCid(int cid);
+
+    //删除一个留言(假删除将delete置为1）
+    @Update("update club_message set isDelete = 1 where mid = #{mid}")
+    int deleteCMeassge(int mid);
+
 }

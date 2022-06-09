@@ -92,6 +92,11 @@
                 <dl class="layui-nav-child" id="my_club">
                 </dl>
             </li>
+            <li class="layui-nav-item layui-nav-itemed">
+                <a href="javascript:;">我的活动</a>
+                <dl class="layui-nav-child" id="my_activity">
+                </dl>
+            </li>
         </ul>
 
 
@@ -151,6 +156,33 @@
                         strs += str;
                     }
                     $('#my_club').html(strs)
+                }
+            }
+        })
+    }
+
+    //发送一个ajax请求查询该用户加入的社团
+    function getActivity() {
+        $.ajax({
+            url: '${pageContext.request.contextPath}/apply_activity/getActivity',
+            data : {
+                uid: ${student.uid}
+            },
+            success : function(res) {
+                console.log(res)
+                if(res != null) {
+                    var strs = '';
+                    for (let i = 0; i < res.length; i++) {
+                        var href = 'aid='+res[i].aid
+                        var str = '<dd>\n' +
+                            '                        <a href="${pageContext.request.contextPath}/activity/detail?'+href+'" data-url="person_message" data-title="'+res[i].cname+'" data-id="'+44+i+'" class="site-demo-active"\n' +
+                            '                           data-type="tabAdd">\n' +
+                            res[i].cname +
+                            '                        </a>\n' +
+                            '                    </dd>'
+                        strs += str;
+                    }
+                    $('#my_activity').html(strs)
                 }
             }
         })
